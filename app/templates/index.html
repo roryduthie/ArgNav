@@ -3,7 +3,7 @@
         <title>{{ title }} - Microblog</title>
     </head>
     <body>
-        <h1>{{ user.username }}!</h1>
+        <h1>{{ user }}</h1>
 		{% for t in table %}
             {{ t|safe }}
 		{% endfor %}

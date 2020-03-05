@@ -1,0 +1,58 @@
+$(function() {
+  panZoomInstance = svgPanZoom('#svgmap', {
+    zoomEnabled: true,
+    controlIconsEnabled: true,
+    fit: true,
+    center: true,
+    minZoom: 1, 
+    maxZoom: 200,
+    zoomScaleSensitivity: 1
+  });
+  
+  // zoom out
+  //panZoomInstance.zoom(0.5)
+  var counter = 0
+
+  $("#move").on("click", function() {
+    // Pan by any values from -80 to 80
+   //panZoomInstance.zoomAtPoint(7,{x: -13, y: 273});
+   
+   //console.log(heightTest.height());
+    zoomToPathWithID("node23");
+    });
+    
+    });
+    
+    function zoomToPathWithID(id){
+  panZoomInstance.reset();
+  
+
+  //REM: Apparently the values need some times to adjust after reset() is called, yet is seems to have no callback.
+  window.setTimeout(function(){
+  var heightTest = $('#container');
+   var hAdj = heightTest.height();
+   console.log(hAdj);
+      var tViewport = document.querySelector('g.svg-pan-zoom_viewport');
+      var tMatrix = tViewport.transform.baseVal.getItem(0).matrix;
+      console.log(tMatrix);
+      var tBBox = document.getElementById(id).getBBox();
+      //var tPoint = {x: -((tBBox.x + tBBox.width / 2) * tMatrix.a + tMatrix.e), y: (tBBox.y + tBBox.height /2) * (tMatrix.d) + (tMatrix.f) + (hAdj) * 2.25}
+      var tPoint = {x: 0, y: 0}
+      
+      if(tBBox.x < hAdj){
+      	tPoint = {x: -((tBBox.x + tBBox.width /2) * tMatrix.a + tMatrix.e), y: (tBBox.y + tBBox.height /2) * (tMatrix.d) + (hAdj) - (tMatrix.f)}
+      }else{
+      	tPoint = {x: ((tBBox.x + tBBox.width) * tMatrix.a + tMatrix.e), y: (tBBox.y + tBBox.height /2) * (tMatrix.d) + (hAdj) - (tMatrix.f)}
+      }
+      
+      //var tPoint = {x: ((tBBox.x + tBBox.width) * tMatrix.a + tMatrix.e), y: (tBBox.y + tBBox.height /2) * (tMatrix.d) + (hAdj) - (tMatrix.f)}
+			console.log(tBBox);
+      console.log(tPoint);
+      
+      
+      
+      //REM: Approximate values, I leave the exact calculation up to you.
+      panZoomInstance.zoomAtPoint(8, tPoint);
+}, 500)
+}
+    

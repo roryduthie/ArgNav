@@ -1,8 +1,59 @@
 <html>
     <head>
-        <title>Microblog</title>
+        <title>{{ title }} - Arg Navigation</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+		<script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/svg-pan-zoom.js') }}"></script>
+		
     </head>
+	
     <body>
-        <h1>{{ text }}</h1>
+	
+	<h1> Arg Map {{ title }} </h1>
+	
+	<div class="container">
+	
+		<div class="tableclass">
+			
+			{% for t in table %}
+				{{ t|safe }}
+			{% endfor %}
+		</div>
+		<div class="canvasclass">
+			{{ svg }}		
+		</div>
+	
+	</div>
+	
+	
+
     </body>
+	
+			<script>
+	window.onload=function(){
+	//document.getElementsByClassName('dataframe')[0].addEventListener("click",function(e) {
+	// e.target was the clicked element
+	//console.log(e.currentTarget);
+	//});
+	var table = document.getElementsByClassName('dataframe')[0];
+	
+	if (table) {
+		for (var i = 0; i < table.rows.length; i++) {
+		table.rows[i].onclick = function() {
+			var aifid= tableText(this);
+			console.log(aifid);
+			};
+		}
+	}
+
+	function tableText(tableRow) {
+		var aifid = tableRow.childNodes[1].innerHTML;
+		return aifid;
+
+	}
+	
+	}
+	
+	</script>
+	<script src="{{ url_for('static', filename='js/panning.js') }}" defer></script>
 </html>
