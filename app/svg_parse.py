@@ -1,4 +1,4 @@
-from app import app
+from . import application
 import xml.etree.ElementTree as ET
 import pandas as pd
 

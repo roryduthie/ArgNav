@@ -1,20 +1,20 @@
 from flask import render_template, request, redirect, session, Markup
-from app import app
+from . import application
 import pandas as pd
 from app.centrality import Centrality
 from app.svg_parse import SVGParse
 
-@app.route('/')
-@app.route('/index')
+@application.route('/')
+@application.route('/index')
 def index():
     return redirect('/form')
  
-@app.route('/form') 
+@application.route('/form') 
 def my_form():
     return render_template('my-form.html') 
     
     
-@app.route('/form', methods=['POST'])
+@application.route('/form', methods=['POST'])
 def my_form_post():
     text = request.form['text']
     session['text_var'] = text
@@ -34,7 +34,7 @@ def get_svg_file(node_id):
     c = Centrality()
     node_path = c.get_svg_path(node_id)
     try:
-        with app.open_resource(node_path) as file:
+        with application.open_resource(node_path) as file:
             svg = file.read()
     except(IOError):
         print('File was not found:')
@@ -47,7 +47,7 @@ def get_svg_file_path(node_id):
     return node_path
     
     
-@app.route('/results')   
+@application.route('/results')   
 def render_text():
     text = session.get('text_var', None)
     d = get_ordered_nodes(text)

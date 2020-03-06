@@ -1,0 +1,8 @@
+version: '2'
+
+services:
+ argnav:
+  container_name: argnav
+  build: .
+  ports:
+  - "8181:5000"

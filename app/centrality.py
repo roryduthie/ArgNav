@@ -1,5 +1,5 @@
-from app.load_map import CorpusLoader
-from app import app
+from .load_map import CorpusLoader
+from . import application
 import json
 from datetime import datetime
 from pathlib import Path
@@ -27,7 +27,7 @@ class Centrality:
     def get_graph(node_path):
         corpus_loader = CorpusLoader()
         try:
-            with app.open_resource(node_path) as json_data:
+            with application.open_resource(node_path) as json_data:
                 graph = corpus_loader.parse_json(json.load(json_data))
         except(IOError):
             print('File was not found:')

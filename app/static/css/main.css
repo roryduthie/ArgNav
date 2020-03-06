@@ -23,6 +23,7 @@ svg {
 	overflow:hidden;
     overflow-y: scroll;
     height: 100%;
+    cursor:pointer;
 }
 
 table.dataframe {
