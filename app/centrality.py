@@ -1,6 +1,7 @@
 from .load_map import CorpusLoader
-from . import application
+from . import app
 import json
+import requests
 from datetime import datetime
 from pathlib import Path
 
@@ -22,13 +23,42 @@ class Centrality:
         directory_path = 'examples/'
         node_path = directory_path + nodeset_id + '.svg'
         return node_path
+    
+    @staticmethod
+    def create_svg_url(nodeset_id, isMap):
+        
+        if isMap:
+            return 'http://www.aifdb.org/diagram/svg/' + nodeset_id
+        else:
+            return 'http://corpora.aifdb.org/' + nodeset_id + '/svg/'
+        return node_path
+    
+    @staticmethod
+    def create_json_url(nodeset_id, isMap):
+        
+        if isMap:
+            return 'http://www.aifdb.org/json/' + nodeset_id
+        else:
+            return 'http://corpora.aifdb.org/' + nodeset_id + '/json/'
+        return node_path
 
     @staticmethod
     def get_graph(node_path):
         corpus_loader = CorpusLoader()
         try:
-            with application.open_resource(node_path) as json_data:
+            with app.open_resource(node_path) as json_data:
                 graph = corpus_loader.parse_json(json.load(json_data))
+        except(IOError):
+            print('File was not found:')
+            print(node_path)
+            
+        return graph
+    
+    @staticmethod
+    def get_graph_url(node_path):
+        corpus_loader = CorpusLoader()
+        try:
+            graph = corpus_loader.parse_json(json.loads(requests.get(node_path).text))
         except(IOError):
             print('File was not found:')
             print(node_path)
@@ -59,3 +89,40 @@ class Centrality:
         ordered_ids = [(i[0],i[2]) for i in sorted_by_second]
         
         return ordered_ids
+    
+    @staticmethod
+    def list_nodes(graph):
+        return list(graph)
+    
+    @staticmethod
+    def get_s_node_list(graph):
+        s_nodes =  [x for x,y in graph.nodes(data=True) if y['type']=='MA' or y['type']=='RA' or y['type']=='CA' or y['type']=='PA']
+        return s_nodes
+    
+    @staticmethod
+    def get_divergent_nodes(graph):
+        list_of_nodes = []
+    
+        for v in list(graph.nodes):
+            node_pres = []
+            node_pres = list(graph.successors(v))
+            if len(node_pres) > 1:
+                list_of_nodes.append(v)
+        return list_of_nodes
+    
+    @staticmethod
+    def get_child_edges(graph):
+        list_of_nodes = []
+        list_of_edges = []
+    
+        for v in list(graph.nodes):
+            node_pres = []
+            node_pres = list(nx.ancestors(graph, v))
+            list_of_nodes.append((v, node_pres))
+            edges = []
+            edges = list(nx.edge_dfs(graph,v, orientation='reverse'))
+            res_list = []
+            res_list = [(x[0], x[1]) for x in edges]
+            list_of_edges.append((v, res_list))
+        
+        return list_of_nodes, list_of_edges

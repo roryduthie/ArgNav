@@ -22,6 +22,8 @@ $(function() {
     });
     
     });
+
+
     
     function zoomToPathWithID(id){
   panZoomInstance.reset();
@@ -44,6 +46,7 @@ $(function() {
    var wAdj = document.getElementsByClassName('canvasclass')[0].clientWidth;
    //var hAdj = 500;
    console.log(wAdj);
+      console.log('got here');
       var tViewport = document.querySelector('g.svg-pan-zoom_viewport');
       var tMatrix = tViewport.transform.baseVal.getItem(0).matrix;
 	  //console.log('got here');
@@ -82,10 +85,15 @@ $(function() {
       //tPoint = {x: (tBBox.x * tMatrix.a) - tBBox.width /2, y: (tBBox.y + tBBox.height /2) * (tMatrix.d) + (hAdj) - (tMatrix.f)}
 	  console.log(tBBox);
       console.log(tPoint);
-	  
+      
+      //change for very wide maps. If it's a full corpus then the SVG is created horizontal.
+	  console.log('got here');
 	  console.log(origs);
 	  var zoomP = 8;
-	  if(origs >= 5000){
+      if (origs >= 50000){
+          
+          zoomP = 210;
+      }else if(origs >= 5000){
 		  zoomP = 8;
 	  }else if(origs < 5000 && origs >= 4000){
 		  zoomP = 6;
@@ -121,5 +129,11 @@ window.onload=function(){
 		return aifid;
 
 	}
+    $(window).resize(function(){
+          panZoomInstance.resize();
+          panZoomInstance.fit();
+          panZoomInstance.center();
+        })
+    
 	
 	}

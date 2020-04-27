@@ -1,18 +1,17 @@
 <html>
-    <form method="POST">
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+    </head>
+    <body>
+        <header>
+            <h1>Argument Navigation</h1>
+        </header>
+        <form method="POST">
 		
 	
 	
-		<label for="text">Choose a map:</label>
-
-		<select name="text">
-			<option value="10672">10672</option>
-			<option value="10444">10444</option>
-			<option value="14199">14199</option>
-			<option value="14146">14146</option>
-			<option value="10440">10440</option>
-			<option value="14151">14151</option>
-		</select>
-		<input type="submit">
-	</form>
+		  <input type="text" id="corpus" name="text" placeholder="Map ID / Corpus">
+		  <button type="submit" class="btn" name="sbm" value="sbm">></button>
+	     </form>
+    </body>
 </html>
