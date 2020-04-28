@@ -4,6 +4,12 @@ import pandas as pd
 from urllib.request import urlopen
 from app.centrality import Centrality
 from app.svg_parse import SVGParse
+import requests
+import json
+import tempfile
+import os
+import uuid
+
 
 @app.route('/')
 @app.route('/index')
@@ -103,3 +109,18 @@ def render_text():
     
     return render_template('results.html', title=text, table=[items], svg=Markup(svg), child_nodes=child_nodes, child_edges=child_edges, svg_nodes=svg_nodes, aif_nodes=aif_nodes, div_nodes=div_nodes, s_nodes=s_nodes)
     
+@app.route('/background_process_test', methods=['POST'])
+def background_process_test():
+    data = json.dumps(request.get_json())
+    filename = uuid.uuid4().hex
+    filename = filename + '.json'
+    with open(filename,"w") as fo:
+        fo.write(data)
+    files = {
+        'file': (filename, open(filename, 'rb')),
+    }
+
+    response = requests.post('http://www.aifdb.org/json/', files=files, auth=('test', 'pass'))
+
+    os.remove(filename)
+    return (response.text)
