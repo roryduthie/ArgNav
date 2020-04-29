@@ -109,7 +109,7 @@ def render_text():
     
     return render_template('results.html', title=text, table=[items], svg=Markup(svg), child_nodes=child_nodes, child_edges=child_edges, svg_nodes=svg_nodes, aif_nodes=aif_nodes, div_nodes=div_nodes, s_nodes=s_nodes)
     
-@app.route('/background_process_test', methods=['POST'])
+@app.route('/background_process', methods=['POST'])
 def background_process_test():
     data = json.dumps(request.get_json())
     filename = uuid.uuid4().hex
