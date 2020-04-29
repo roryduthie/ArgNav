@@ -1,0 +1,23 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: darkslateblue;
+} 
+
+h1{
+    color: white;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Helvetica, Arial, sans-serif;
+    font-size: 1.4em;
+}
+
+header{
+    position: fixed;
+    top: 40%;
+    left: 20%;
+}
+
+form{
+    position: fixed;
+    top: 45%;
+    left: 20%;
+}
