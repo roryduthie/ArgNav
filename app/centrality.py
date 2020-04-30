@@ -4,6 +4,7 @@ import json
 import requests
 from datetime import datetime
 from pathlib import Path
+import re
 
 import networkx as nx
 
@@ -57,8 +58,13 @@ class Centrality:
     @staticmethod
     def get_graph_url(node_path):
         corpus_loader = CorpusLoader()
+        print(node_path)
         try:
-            graph = corpus_loader.parse_json(json.loads(requests.get(node_path).text))
+            jsn_string = requests.get(node_path).text
+            strng_ind = jsn_string.index('{')
+            n_string = jsn_string[strng_ind:]
+            dta = json.loads(n_string)
+            graph = corpus_loader.parse_json(dta)
         except(IOError):
             print('File was not found:')
             print(node_path)
@@ -78,9 +84,13 @@ class Centrality:
         
     @staticmethod
     def get_eigen_centrality(graph):
-        eig_cent = nx.eigenvector_centrality_numpy(graph)
-        nx.set_node_attributes(graph, eig_cent, 'eig_central')
-        i_nodes =  [(x,y['eig_central'],y['text']) for x,y in graph.nodes(data=True) if y['type']=='I']
+        try:
+            cent = nx.eigenvector_centrality_numpy(graph)
+        except:
+            cent = nx.degree_centrality(graph)
+            
+        nx.set_node_attributes(graph, cent, 'central')
+        i_nodes =  [(x,y['central'],y['text']) for x,y in graph.nodes(data=True) if y['type']=='I']
         return i_nodes
         
     @staticmethod        
