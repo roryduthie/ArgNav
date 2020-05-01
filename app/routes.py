@@ -81,11 +81,11 @@ def render_text():
     ordered_nodes, all_nodes, div_nodes, child_nodes, child_edges, s_nodes, l_nodes = get_ordered_nodes(text, isMap)
     df = pd.DataFrame(data=ordered_nodes, columns=['id', 'text'])
     
-    IAT_mode = False
+    iat_mode = False
     l_node_id = []
     l_node_text = []
 
-    if IAT_mode:
+    if iat_mode:
         df_locutions = l_nodes, columns=['id', 'text']
         l_node_id = df_locutions['id'].tolist()
         l_node_text = df_loctions['text'].tolist()
@@ -117,10 +117,7 @@ def render_text():
     
     items = merged_df.to_html(header=False, index=False)
     
-    if IAT_mode:
-        return render_template('iat.html', title=text, table=[items], svg=Markup(svg), child_nodes=child_nodes, child_edges=child_edges, svg_nodes=svg_nodes, aif_nodes=aif_nodes, div_nodes=div_nodes, s_nodes=s_nodes, l_node_id=l_node_id, l_node_text=l_node_text)
-    else:
-        return render_template('results.html', title=text, table=[items], svg=Markup(svg), child_nodes=child_nodes, child_edges=child_edges, svg_nodes=svg_nodes, aif_nodes=aif_nodes, div_nodes=div_nodes, s_nodes=s_nodes)
+    return render_template('results.html', title=text, table=[items], svg=Markup(svg), child_nodes=child_nodes, child_edges=child_edges, svg_nodes=svg_nodes, aif_nodes=aif_nodes, div_nodes=div_nodes, s_nodes=s_nodes, l_node_id=l_node_id, l_node_text=l_node_text, iat_mode=iat_mode)
 
 @application.route('/background_process', methods=['POST'])
 def background_process_test():
