@@ -33,6 +33,7 @@ def get_ordered_nodes(node_id, isMap):
     #Add extension for L-nodes here
     node_path = centra.create_json_url(node_id, isMap)
     graph = centra.get_graph_url(node_path)
+    l_nodes = centra.get_l_node_list(graph)
     n_graph = centra.remove_redundant_nodes(graph)
     list_of_nodes = centra.list_nodes(graph)
     divergent_nodes = centra.get_divergent_nodes(n_graph)
@@ -41,7 +42,7 @@ def get_ordered_nodes(node_id, isMap):
     ordered_nodes = centra.sort_by_centrality(i_nodes)
     children, edges = centra.get_child_edges(n_graph)
     
-    return ordered_nodes, list_of_nodes, divergent_nodes, children, edges, s_nodes
+    return ordered_nodes, list_of_nodes, divergent_nodes, children, edges, s_nodes, l_nodes
     
 def get_svg_file(node_id):
     c = Centrality()
@@ -77,9 +78,19 @@ def get_svg_file_path(node_id):
 def render_text():
     text = session.get('text_var', None)
     isMap = text.isdigit() 
-    ordered_nodes, all_nodes, div_nodes, child_nodes, child_edges, s_nodes = get_ordered_nodes(text, isMap)
+    ordered_nodes, all_nodes, div_nodes, child_nodes, child_edges, s_nodes, l_nodes = get_ordered_nodes(text, isMap)
     df = pd.DataFrame(data=ordered_nodes, columns=['id', 'text'])
     
+    IAT_mode = False
+    l_node_id = []
+    l_node_text = []
+
+    if IAT_mode:
+        df_locutions = l_nodes, columns=['id', 'text']
+        l_node_id = df_locutions['id'].tolist()
+        l_node_text = df_loctions['text'].tolist()
+
+
     #re-index into reverse order - so nodes with highest centrality are at the right end of the dataframe
     df = df[::-1]
     
@@ -106,10 +117,11 @@ def render_text():
     
     items = merged_df.to_html(header=False, index=False)
     
-    
-    
-    return render_template('results.html', title=text, table=[items], svg=Markup(svg), child_nodes=child_nodes, child_edges=child_edges, svg_nodes=svg_nodes, aif_nodes=aif_nodes, div_nodes=div_nodes, s_nodes=s_nodes)
-    
+    if IAT_mode:
+        return render_template('iat.html', title=text, table=[items], svg=Markup(svg), child_nodes=child_nodes, child_edges=child_edges, svg_nodes=svg_nodes, aif_nodes=aif_nodes, div_nodes=div_nodes, s_nodes=s_nodes, l_node_id=l_node_id, l_node_text=l_node_text)
+    else:
+        return render_template('results.html', title=text, table=[items], svg=Markup(svg), child_nodes=child_nodes, child_edges=child_edges, svg_nodes=svg_nodes, aif_nodes=aif_nodes, div_nodes=div_nodes, s_nodes=s_nodes)
+
 @application.route('/background_process', methods=['POST'])
 def background_process_test():
     data = json.dumps(request.get_json())

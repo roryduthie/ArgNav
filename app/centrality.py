@@ -109,6 +109,12 @@ class Centrality:
         s_nodes =  [x for x,y in graph.nodes(data=True) if y['type']=='MA' or y['type']=='RA' or y['type']=='CA' or y['type']=='PA']
         return s_nodes
     
+
+    @staticmethod
+    def get_l_node_list(graph):
+        l_nodes =  [(x,y['text']) for x,y in graph.nodes(data=True) if y['type']=='L']
+        return l_nodes
+
     @staticmethod
     def get_divergent_nodes(graph):
         list_of_nodes = []
