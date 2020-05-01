@@ -30,6 +30,7 @@ def my_form_post():
 def get_ordered_nodes(node_id, isMap):
     centra = Centrality()
     #node_path = centra.get_nodeset_path(node_id)
+    #Add extension for L-nodes here
     node_path = centra.create_json_url(node_id, isMap)
     graph = centra.get_graph_url(node_path)
     n_graph = centra.remove_redundant_nodes(graph)
