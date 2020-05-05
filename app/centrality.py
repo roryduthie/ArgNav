@@ -127,6 +127,25 @@ class Centrality:
         return list_of_nodes
     
     @staticmethod
+    def get_loc_prop_pair(graph):
+        locution_prop_pair = []
+        for node_id in i_node_ids:
+            preds = list(graph.predecessors(node_id))
+            for pred in preds:
+                node_type=graph.nodes[pred]['type']
+                node_text = graph.nodes[pred]['text']
+
+                if node_type == 'YA' and node_text != 'Agreeing':
+                    ya_preds = list(graph.predecessors(pred))
+                    for ya_pred in ya_preds:
+                        pred_node_type=graph.nodes[ya_pred]['type']
+                        pred_node_text=graph.nodes[ya_pred]['text']
+
+                        if pred_node_type == 'L':
+                            locution_prop_pair.append((ya_pred, node_id))
+        return locution_prop_pair
+
+    @staticmethod
     def get_child_edges(graph):
         list_of_nodes = []
         list_of_edges = []
