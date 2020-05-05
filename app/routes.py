@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, session, Markup
-from . import application
+from . import app
 import pandas as pd
 from urllib.request import urlopen
 from app.centrality import Centrality
@@ -11,17 +11,17 @@ import os
 import uuid
 
 
-@application.route('/')
-@application.route('/index')
+@app.route('/')
+@app.route('/index')
 def index():
     return redirect('/form')
  
-@application.route('/form') 
+@app.route('/form')
 def my_form():
     return render_template('my-form.html') 
     
     
-@application.route('/form', methods=['POST'])
+@app.route('/form', methods=['POST'])
 def my_form_post():
     text = request.form['text']
     session['text_var'] = text
@@ -48,7 +48,7 @@ def get_svg_file(node_id):
     c = Centrality()
     node_path = c.get_svg_path(node_id)
     try:
-        with application.open_resource(node_path) as file:
+        with app.open_resource(node_path) as file:
             svg = file.read()
     except(IOError):
         print('File was not found:')
@@ -74,7 +74,7 @@ def get_svg_file_path(node_id):
     return node_path
     
     
-@application.route('/results')   
+@app.route('/results')
 def render_text():
     text = session.get('text_var', None)
     isMap = text.isdigit() 
@@ -119,7 +119,7 @@ def render_text():
     
     return render_template('results.html', title=text, table=[items], svg=Markup(svg), child_nodes=child_nodes, child_edges=child_edges, svg_nodes=svg_nodes, aif_nodes=aif_nodes, div_nodes=div_nodes, s_nodes=s_nodes, l_node_id=l_node_id, l_node_text=l_node_text, iat_mode=iat_mode)
 
-@application.route('/background_process', methods=['POST'])
+@app.route('/background_process', methods=['POST'])
 def background_process_test():
     data = json.dumps(request.get_json())
     filename = uuid.uuid4().hex
