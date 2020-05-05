@@ -90,8 +90,6 @@ def render_text():
 
     iat_mode = check_iat_var(iat_var)
 
-    print(iat_mode)
-
     isMap = text.isdigit() 
     ordered_nodes, all_nodes, div_nodes, child_nodes, child_edges, s_nodes, l_nodes = get_ordered_nodes(text, isMap)
     df = pd.DataFrame(data=ordered_nodes, columns=['id', 'text'])
@@ -100,9 +98,9 @@ def render_text():
     l_node_text = []
 
     if iat_mode:
-        df_locutions = l_nodes, columns=['id', 'text']
+        df_locutions = pd.DataFrame(l_nodes, columns=['id', 'text'])
         l_node_id = df_locutions['id'].tolist()
-        l_node_text = df_loctions['text'].tolist()
+        l_node_text = df_locutions['text'].tolist()
 
 
     #re-index into reverse order - so nodes with highest centrality are at the right end of the dataframe
