@@ -23,8 +23,11 @@ def my_form():
     
 @app.route('/form', methods=['POST'])
 def my_form_post():
+    iat_mode = 'false'
     text = request.form['text']
+    iat_mode = request.form['iat_mode']
     session['text_var'] = text
+    session['iat_mode'] = iat_mode
     return redirect('/results')
     
 def get_ordered_nodes(node_id, isMap):
@@ -72,16 +75,27 @@ def get_svg_file_path(node_id):
     c = Centrality()
     node_path = c.get_svg_path(node_id)
     return node_path
+
+def check_iat_var(iat_var):
+    if iat_var == 'true':
+        return True
+    else:
+        return False
     
     
 @app.route('/results')
 def render_text():
     text = session.get('text_var', None)
+    iat_var = session.get('iat_mode', None)
+
+    iat_mode = check_iat_var(iat_var)
+
+    print(iat_mode)
+
     isMap = text.isdigit() 
     ordered_nodes, all_nodes, div_nodes, child_nodes, child_edges, s_nodes, l_nodes = get_ordered_nodes(text, isMap)
     df = pd.DataFrame(data=ordered_nodes, columns=['id', 'text'])
-    
-    iat_mode = False
+
     l_node_id = []
     l_node_text = []
 
