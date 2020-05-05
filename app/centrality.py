@@ -81,6 +81,10 @@ class Centrality:
         graph.remove_nodes_from(nodes_to_remove)
         
         return graph
+    @staticmethod
+    def remove_iso_nodes(graph):
+        graph.remove_nodes_from(list(nx.isolates(graph)))
+        return graph
         
     @staticmethod
     def get_eigen_centrality(graph):

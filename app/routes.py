@@ -36,6 +36,7 @@ def get_ordered_nodes(node_id, isMap):
     #Add extension for L-nodes here
     node_path = centra.create_json_url(node_id, isMap)
     graph = centra.get_graph_url(node_path)
+    graph = centra.remove_iso_nodes(graph)
     l_nodes = centra.get_l_node_list(graph)
     n_graph = centra.remove_redundant_nodes(graph)
     list_of_nodes = centra.list_nodes(graph)

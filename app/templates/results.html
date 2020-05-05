@@ -29,6 +29,15 @@
         <div class="buttonclass">
             <button id="table_button" onclick="toggleButton()"><span id='btn_table_text'> &#8679; Centrality &#8679;</span></button>
         </div>
+        <div class="locutionclass">
+            <table class="dataframe">
+            {% for loc in l_node_text %}
+                <tr>
+                    <td>{{ loc }}</td>
+                </tr>
+            {% endfor %}
+            </table>
+        </div>
 
         <div class="canvasclass">
             {{ svg }}
