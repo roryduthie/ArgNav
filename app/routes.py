@@ -79,9 +79,9 @@ def get_svg_file_path(node_id):
 
 def check_iat_var(iat_var):
     if iat_var == 'true':
-        return True
+        return 'true'
     else:
-        return False
+        return 'false'
     
     
 @app.route('/results')
@@ -98,7 +98,7 @@ def render_text():
     l_node_id = []
     l_node_text = []
 
-    if iat_mode:
+    if iat_mode == 'true':
         df_locutions = pd.DataFrame(l_nodes, columns=['id', 'text'])
         l_node_id = df_locutions['id'].tolist()
         l_node_text = df_locutions['text'].tolist()

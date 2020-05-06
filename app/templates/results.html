@@ -30,7 +30,7 @@
             <button id="table_button" onclick="toggleButton()"><span id='btn_table_text'> &#8679; Centrality &#8679;</span></button>
         </div>
         <div class="locutionclass">
-            <table class="dataframe">
+            <table class="locframe">
             {% for loc in l_node_text %}
                 <tr>
                     <td>{{ loc }}</td>
@@ -84,6 +84,14 @@
     var from_text = [];
     var to_text = [];
     var schema_list = [];
+    var iat_mode = {{iat_mode}};
+
+    if(iat_mode === false){
+        var x = document.getElementsByClassName("locutionclass")[0];
+        var y = document.getElementsByClassName("tableclass")[0];
+        y.style.width = "20%";
+        x.style.display = "none";
+    }
 
     var annotation_counter = 0;
     var annotation_flag = false;
