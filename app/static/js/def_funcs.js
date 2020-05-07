@@ -84,13 +84,13 @@ function uploadAIFdb() {
                     };
 
                     var edge_data = {
-                    "edgeID": "" + ids + ids,
+                    "edgeID": "e" + ids + ids,
                     "fromID": "" + ids + ids + ids + ids,
                     "toID": "" + ids
                     };
 
                     var edge_data_2 = {
-                    "edgeID": "" + ids + ids + ids,
+                    "edgeID": "e" + ids + ids + ids,
                     "fromID": "" + ids,
                     "toID": "" + ids + ids + ids + ids + ids
                     };
@@ -239,6 +239,7 @@ function uploadAIFdb() {
                     var l_id_to = vals_to[0];
                     var l_text_to = vals_to[1];
 
+
                     var vals_from = get_l_node_text(i_node_id_from);
                     var l_id_from = vals_from[0];
                     var l_text_from = vals_from[1];
@@ -334,12 +335,12 @@ function uploadAIFdb() {
                 "type": to_type[i]
                 };
                 var edge_data = {
-                "edgeID": "" + ids + ids,
+                "edgeID": "e" + ids + ids,
                 "fromID": "" + ids + ids + ids + ids,
                 "toID": "" + ids
                 };
                 var edge_data_2 = {
-                "edgeID": "" + ids + ids + ids,
+                "edgeID": "e" + ids + ids + ids,
                 "fromID": "" + ids,
                 "toID": "" + ids + ids + ids + ids + ids
                 };

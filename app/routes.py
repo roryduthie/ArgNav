@@ -144,9 +144,7 @@ def background_process_test():
         'file': (filename, open(filename, 'rb')),
     }
 
-    print(data)
-
-    #response = requests.post('http://www.aifdb.org/json/', files=files, auth=('test', 'pass'))
+    response = requests.post('http://www.aifdb.org/json/', files=files, auth=('test', 'pass'))
 
     os.remove(filename)
     return (response.text)
