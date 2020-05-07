@@ -37,6 +37,8 @@ d3.selectAll('.node')
         }
     }
 
+
+
     function double_click(element, aif_id) {
 
         var textels = element.selectAll('text').nodes();

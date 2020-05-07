@@ -114,6 +114,7 @@ window.onload=function(){
 	//console.log(e.currentTarget);
 	//});
 	var table = document.getElementsByClassName('dataframe')[0];
+    var loctable = document.getElementsByClassName('locframe')[0];
 	
 	if (table) {
 		for (var i = 0; i < table.rows.length; i++) {
@@ -123,6 +124,16 @@ window.onload=function(){
 			};
 		}
 	}
+
+    if (loctable) {
+		for (var i = 0; i < loctable.rows.length; i++) {
+		loctable.rows[i].onclick = function() {
+			var loctext= tableText(this);
+			console.log(loctext);
+			};
+		}
+	}
+
 
 	function tableText(tableRow) {
 		var aifid = tableRow.childNodes[1].innerHTML;
