@@ -140,6 +140,36 @@ svg {
 #annotation_button:hover {background-color: #ddd;}
 #annotation_sbmt:hover {background-color: #ddd;}
 
+#btn_loc_text{
+    width: 100%;
+    white-space: nowrap ;
+    display: inline-block;
+    transform: rotate(-90deg);
+    font-size: medium;
+    color: darkslateblue;
+}
+.loc_buttonclass {
+    border-left: hidden;
+    border-bottom: hidden;
+	width: 2%;
+    border: 1px solid #ddd;
+    cursor:pointer;
+}
+
+
+
+#loc_button {
+    background-color: #FFFFFF;
+    font-size: large;
+    color: blue;
+    border-left: hidden;
+    width: 2%;
+    position: absolute;
+    height:90%;
+}
+
+#loc_button:hover {background-color: #ddd;}
+
 table.dataframe {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;

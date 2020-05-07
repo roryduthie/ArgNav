@@ -114,23 +114,59 @@ function uploadAIFdb() {
         var x = document.getElementsByClassName("tableclass")[0];
         var canvas = document.getElementsByClassName("canvasclass")[0];
         var annclass = document.getElementsByClassName("annotationclass")[0];
+        var locclass = document.getElementsByClassName("locutionclass")[0];
 
         if (x.style.display === "none") {
             x.style.display = "block";
+            //display central issues
 
-            if (annclass.style.display === "none") {
-                canvas.style.width = "80%";
+            if (annclass.style.display === "none" || annclass.style.display === "") {
+
+                if(locclass.style.display === "none" && iat_mode === true){
+                    canvas.style.width = "90%";
+                }
+                else if (iat_mode === false){
+                    canvas.style.width = "80%";
+                }else{
+                    canvas.style.width = "80%";
+                }
             } else {
-                canvas.style.width = "80%";
+                if(locclass.style.display === "none" && iat_mode=== true){
+                    canvas.style.width = "70%";
+                }
+                else if(iat_mode === true){
+                    canvas.style.width = "60%";
+                }
+                else{
+                    canvas.style.width = "100%";
+                }
             }
 
             $("#btn_table_text").html("&#8679; Centrality &#8679;");
         } else {
+            //hide central issues
+            console.log(iat_mode);
+            console.log(annclass.style.display);
             $("#btn_table_text").html("&#8681; Centrality &#8681;");
-            if (annclass.style.display === "none") {
+            if (annclass.style.display === "none" && iat_mode === false || annclass.style.display === "" && iat_mode === false) {
                 canvas.style.width = "100%";
-            } else {
-                canvas.style.width = "100%";
+            } else if(annclass.style.display === "block" && iat_mode === true){
+                if(locclass.style.display === "none" && iat_mode === true){
+                    canvas.style.width = "80%";
+                }else{
+                    canvas.style.width = "70%";
+                }
+
+            }else if(iat_mode === true){
+                if(locclass.style.display === "none"){
+                    canvas.style.width = "100%";
+                }
+                else{
+                    canvas.style.width = "100%";
+                }
+
+            }else{
+                canvas.style.width = "80%";
             }
 
             x.style.display = "none";
@@ -141,25 +177,83 @@ function uploadAIFdb() {
         var x = document.getElementsByClassName("annotationclass")[0];
         var canvas = document.getElementsByClassName("canvasclass")[0];
         var tabclass = document.getElementsByClassName("tableclass")[0];
+        var locclass = document.getElementsByClassName("locutionclass")[0];
 
         if (x.style.display === "none") {
+            //display ann panel
             x.style.display = "block";
             canvas.style.width = "60%";
 
             if (tabclass.style.display === "none") {
                 canvas.style.width = "80%";
             } else {
-                canvas.style.width = "60%";
+                if (locclass.style.display === "none"){
+                    canvas.style.width = "70%";
+                }
+                else{
+                    canvas.style.width = "60%";
+                }
+
             }
 
             $("#btn_ann_text").html("&#8681; Annotation &#8681;");
         } else {
+            //hide ann panel
             $("#btn_ann_text").html("&#8679; Annotation &#8679;");
             if (tabclass.style.display === "none") {
                 canvas.style.width = "100%";
             } else {
-                canvas.style.width = "80%";
+                if (locclass.style.display === "none"){
+                    canvas.style.width = "90%";
+                }else{
+                    canvas.style.width = "80%";
+                }
+
             }
+            x.style.display = "none";
+        }
+    }
+
+    function toggleLocButton() {
+        var x = document.getElementsByClassName("locutionclass")[0];
+        var canvas = document.getElementsByClassName("canvasclass")[0];
+        var annclass = document.getElementsByClassName("annotationclass")[0];
+        var tabclass = document.getElementsByClassName("tableclass")[0];
+
+        if (x.style.display === "none") {
+            //display loc button
+            x.style.display = "block";
+
+            if (annclass.style.display === "none" || annclass.style.display === "") {
+                if (tabclass.style.display === "none") {
+                    canvas.style.width = "90%";
+                }else{
+                    canvas.style.width = "90%";
+                }
+
+            } else {
+                canvas.style.width = "70%";
+            }
+
+            $("#btn_loc_text").html("&#8679; Locutions &#8679;");
+        } else {
+            //hide loc button
+            $("#btn_loc_text").html("&#8681; Locutions &#8681;");
+            if (annclass.style.display === "none" || annclass.style.display === "") {
+                canvas.style.width = "90%";
+                if(tabclass.style.display === "none"){
+                    canvas.style.width = "100%";
+                }
+            } else {
+                if(tabclass.style.display === "none"){
+                    canvas.style.width = "90%";
+                }
+                else{
+                    canvas.style.width = "70%";
+                }
+
+            }
+
             x.style.display = "none";
         }
     }

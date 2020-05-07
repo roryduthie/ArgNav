@@ -29,6 +29,7 @@
         <div class="buttonclass">
             <button id="table_button" onclick="toggleButton()"><span id='btn_table_text'> &#8679; Centrality &#8679;</span></button>
         </div>
+
         <div class="locutionclass">
             <table class="locframe">
             {% for loc in l_node_text %}
@@ -37,6 +38,9 @@
                 </tr>
             {% endfor %}
             </table>
+        </div>
+        <div class="locbuttonclass">
+            <button id="loc_button" onclick="toggleLocButton()"><span id='btn_loc_text'> &#8679; Locutions &#8679;</span></button>
         </div>
 
         <div class="canvasclass">
@@ -88,9 +92,11 @@
 
     if(iat_mode === false){
         var x = document.getElementsByClassName("locutionclass")[0];
+        var locbut = document.getElementsByClassName("locbuttonclass")[0];
         var y = document.getElementsByClassName("tableclass")[0];
         y.style.width = "20%";
         x.style.display = "none";
+        locbut.style.display = "none";
     }
 
     var annotation_counter = 0;
