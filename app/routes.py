@@ -38,6 +38,7 @@ def get_ordered_nodes(node_id, isMap):
     graph = centra.get_graph_url(node_path)
     graph = centra.remove_iso_nodes(graph)
     l_nodes = centra.get_l_node_list(graph)
+    l_node_i_node = centra.get_loc_prop_pair(graph)
     n_graph = centra.remove_redundant_nodes(graph)
     list_of_nodes = centra.list_nodes(graph)
     divergent_nodes = centra.get_divergent_nodes(n_graph)
@@ -46,7 +47,7 @@ def get_ordered_nodes(node_id, isMap):
     ordered_nodes = centra.sort_by_centrality(i_nodes)
     children, edges = centra.get_child_edges(n_graph)
     
-    return ordered_nodes, list_of_nodes, divergent_nodes, children, edges, s_nodes, l_nodes
+    return ordered_nodes, list_of_nodes, divergent_nodes, children, edges, s_nodes, l_nodes, l_node_i_node
     
 def get_svg_file(node_id):
     c = Centrality()
@@ -92,7 +93,7 @@ def render_text():
     iat_mode = check_iat_var(iat_var)
 
     isMap = text.isdigit() 
-    ordered_nodes, all_nodes, div_nodes, child_nodes, child_edges, s_nodes, l_nodes = get_ordered_nodes(text, isMap)
+    ordered_nodes, all_nodes, div_nodes, child_nodes, child_edges, s_nodes, l_nodes, l_i_nodes = get_ordered_nodes(text, isMap)
     df = pd.DataFrame(data=ordered_nodes, columns=['id', 'text'])
 
     l_node_id = []
@@ -130,7 +131,7 @@ def render_text():
     
     items = merged_df.to_html(header=False, index=False)
     
-    return render_template('results.html', title=text, table=[items], svg=Markup(svg), child_nodes=child_nodes, child_edges=child_edges, svg_nodes=svg_nodes, aif_nodes=aif_nodes, div_nodes=div_nodes, s_nodes=s_nodes, l_node_id=l_node_id, l_node_text=l_node_text, iat_mode=iat_mode)
+    return render_template('results.html', title=text, table=[items], svg=Markup(svg), child_nodes=child_nodes, child_edges=child_edges, svg_nodes=svg_nodes, aif_nodes=aif_nodes, div_nodes=div_nodes, s_nodes=s_nodes, l_node_id=l_node_id, l_node_text=l_node_text, iat_mode=iat_mode, l_i_nodes=l_i_nodes)
 
 @app.route('/background_process', methods=['POST'])
 def background_process_test():
@@ -143,7 +144,9 @@ def background_process_test():
         'file': (filename, open(filename, 'rb')),
     }
 
-    response = requests.post('http://www.aifdb.org/json/', files=files, auth=('test', 'pass'))
+    print(data)
+
+    #response = requests.post('http://www.aifdb.org/json/', files=files, auth=('test', 'pass'))
 
     os.remove(filename)
     return (response.text)

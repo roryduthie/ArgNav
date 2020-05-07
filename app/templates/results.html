@@ -63,6 +63,8 @@
             <option value="RA">Default Inference (RA) </option>
             <option value="CA">Default Conflict (CA)</option>
             <option value="MA">Default Rephrase (MA)</option>
+            <option value="TA">Default Transition (TA)</option>
+            <option value="YA">Agreeing</option>
         </select>
     </div>
     <script>
@@ -84,10 +86,15 @@
     var svg_nodes_list = {{svg_nodes | tojson}};
     var divergent_list = {{div_nodes | tojson}};
     var snode_list = {{s_nodes | tojson}};
+    var lnode_id_list = {{l_node_id | tojson}};
+    var lnode_text_list = {{l_node_text | tojson}};
+    var lnode_inode_list = {{l_i_nodes | tojson}};
     var from_annotation_list = [];
     var to_annotation_list = [];
     var from_text = [];
     var to_text = [];
+    var from_type = [];
+    var to_type = [];
     var schema_list = [];
     var iat_mode = {{iat_mode}};
 

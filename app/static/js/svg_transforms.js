@@ -48,7 +48,7 @@ d3.selectAll('.node')
         }
         allText = allText.trim();
         if (!annotation_flag) {
-
+            from_type.push('I');
             //console.log(allText);
             from_annotation_list.push(aif_id);
             from_text.push(allText);
@@ -57,6 +57,7 @@ d3.selectAll('.node')
         } else {
             //console.log('TO');
             to_annotation_list.push(aif_id);
+            to_type.push('I');
             to_text.push(allText);
             annotation_counter = annotation_counter + 1;
 

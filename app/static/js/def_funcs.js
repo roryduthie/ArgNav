@@ -1,3 +1,21 @@
+function get_l_node_text(i_node_id){
+    for(z = 0; z < lnode_inode_list.length; z++){
+        var lnode_id = lnode_inode_list[z][0];
+        var inode_id = lnode_inode_list[z][1];
+
+        if(i_node_id == inode_id){
+            //return lnode_id;
+            for(zz = 0; zz < lnode_id_list.length; zz++){
+                var l_id = lnode_id_list[zz];
+                if(l_id == lnode_id){
+                    var ltext = lnode_text_list[zz];
+                    return [l_id, ltext];
+                }
+            }
+        }
+    }
+}
+
 function uploadAIFdb() {
         var node_list = [];
         var edge_list = [];
@@ -30,39 +48,310 @@ function uploadAIFdb() {
                 schema_text = "Default Rephrase";
                 schemeID = "144";
             }
-            var ids = i + 1;
+            if (schema_node == 'TA') {
+                schema_text = "Default Transition";
+                schemeID = "82";
+            }
+            if (schema_node == 'Agreeing') {
+                schema_text = "Agreeing";
+                schema_node = 'YA';
+                schemeID = "82";
+            }
 
-            var node_data = {
+            var ids = i + 1;
+            if(iat_mode){
+
+                var t_type = to_type[i];
+                var f_type = from_type[i];
+
+                if(t_type == 'L' && f_type == 'L'){
+                    var node_data = {
+                    "nodeID": "" + ids,
+                    "text": schema_text,
+                    "type": schema_node
+                    };
+
+                    var node_data_2 = {
+                    "nodeID": "" + ids + ids + ids + ids,
+                    "text": from_text[i],
+                    "type": from_type[i]
+                    };
+
+                    var node_data_3 = {
+                    "nodeID": "" + ids + ids + ids + ids + ids,
+                    "text": to_text[i],
+                    "type": to_type[i]
+                    };
+
+                    var edge_data = {
+                    "edgeID": "" + ids + ids,
+                    "fromID": "" + ids + ids + ids + ids,
+                    "toID": "" + ids
+                    };
+
+                    var edge_data_2 = {
+                    "edgeID": "" + ids + ids + ids,
+                    "fromID": "" + ids,
+                    "toID": "" + ids + ids + ids + ids + ids
+                    };
+
+                    node_list.push(node_data);
+                    node_list.push(node_data_2);
+                    node_list.push(node_data_3);
+                    edge_list.push(edge_data);
+                    edge_list.push(edge_data_2);
+
+                }else if(t_type == 'I' && f_type == 'L'){
+
+                    //agreeing
+                    var node_data = {
+                    "nodeID": "" + ids,
+                    "text": schema_text,
+                    "type": schema_node
+                    };
+
+                    //ta
+                    var node_data_ta = {
+                    "nodeID": "ta" + ids,
+                    "text": "Default Transition",
+                    "type": "TA"
+                    };
+
+                    //orig locution
+                    var node_data_2 = {
+                    "nodeID": "" + ids + ids + ids + ids,
+                    "text": from_text[i],
+                    "type": from_type[i]
+                    };
+
+                    //orig i node
+                    var node_data_3 = {
+                    "nodeID": "" + ids + ids + ids + ids + ids,
+                    "text": to_text[i],
+                    "type": to_type[i]
+                    };
+
+                    //call function to find L-node
+                    var i_node_id = to_annotation_list[i];
+                    var vals = get_l_node_text(i_node_id);
+                    var l_id = vals[0];
+                    var l_text = vals[1];
+
+                    //other locution
+                    var node_data_4 = {
+                    "nodeID": "L" + ids,
+                    "text": l_text,
+                    "type": "L"
+                    };
+
+                    var edge_data = {
+                    "edgeID": "e" + ids + ids,
+                    "fromID": "" + ids,
+                    "toID": "" + ids + ids + ids + ids + ids
+                    };
+
+                    var edge_data_2 = {
+                    "edgeID": "e" + ids + ids + ids,
+                    "fromID": "L" + ids,
+                    "toID": "ta" + ids
+                    };
+
+                    var edge_data_3 = {
+                    "edgeID": "e" + ids + ids + ids + ids,
+                    "fromID": "ta" + ids,
+                    "toID": "" + ids + ids + ids + ids
+                    };
+
+                    var edge_data_4 = {
+                    "edgeID": "e" + ids + ids + ids + ids + ids,
+                    "fromID": "ta" + ids,
+                    "toID": "" + ids
+                    };
+
+                    node_list.push(node_data);
+                    node_list.push(node_data_2);
+                    node_list.push(node_data_3);
+                    node_list.push(node_data_4);
+                    node_list.push(node_data_ta);
+                    edge_list.push(edge_data);
+                    edge_list.push(edge_data_2);
+                    edge_list.push(edge_data_3);
+                    edge_list.push(edge_data_4);
+
+                }else if(t_type == 'I' && f_type == 'I'){
+
+                    //RA/CA/MA
+                    var node_data = {
+                    "nodeID": "" + ids,
+                    "text": schema_text,
+                    "type": schema_node
+                    };
+
+                    //ta
+                    var node_data_ta = {
+                    "nodeID": "ta" + ids,
+                    "text": "Default Transition",
+                    "type": "TA"
+                    };
+
+
+                    if(schema_node == 'RA'){
+                        var node_data_ya = {
+                        "nodeID": "ya" + ids,
+                        "text": "Arguing",
+                        "type": "YA"
+                        };
+                    } else if(schema_node == 'CA'){
+                        var node_data_ya = {
+                        "nodeID": "ya" + ids,
+                        "text": "Disagreeing",
+                        "type": "YA"
+                        };
+                    } else if(schema_node == 'MA'){
+                        var node_data_ya = {
+                        "nodeID": "ya" + ids,
+                        "text": "Restating",
+                        "type": "YA"
+                        };
+                    }
+
+
+                    //orig i
+                    var node_data_2 = {
+                    "nodeID": "" + ids + ids + ids + ids,
+                    "text": from_text[i],
+                    "type": from_type[i]
+                    };
+
+                    //orig i 2
+                    var node_data_3 = {
+                    "nodeID": "" + ids + ids + ids + ids + ids,
+                    "text": to_text[i],
+                    "type": to_type[i]
+                    };
+
+
+
+                    //call function to find L-node
+                    var i_node_id_to = to_annotation_list[i];
+                    var i_node_id_from = from_annotation_list[i];
+                    var vals_to = get_l_node_text(i_node_id_to);
+                    var l_id_to = vals_to[0];
+                    var l_text_to = vals_to[1];
+
+                    var vals_from = get_l_node_text(i_node_id_from);
+                    var l_id_from = vals_from[0];
+                    var l_text_from = vals_from[1];
+
+                    //to locution
+                    var node_data_4 = {
+                    "nodeID": "Lto" + ids,
+                    "text": l_text_to,
+                    "type": "L"
+                    };
+
+                    //from locution
+                    var node_data_5 = {
+                    "nodeID": "Lfr" + ids,
+                    "text": l_text_from,
+                    "type": "L"
+                    };
+
+
+
+
+                    var edge_data = {
+                    "edgeID": "e" + ids + ids,
+                    "fromID": "" + ids,
+                    "toID": "" + ids + ids + ids + ids + ids
+                    };
+
+                    var edge_data_2 = {
+                    "edgeID": "e" + ids + ids + ids,
+                    "fromID": "Lto" + ids,
+                    "toID": "ta" + ids
+                    };
+
+                    var edge_data_3 = {
+                    "edgeID": "e" + ids + ids + ids + ids,
+                    "fromID": "ta" + ids,
+                    "toID": "Lfr" + ids
+                    };
+
+                    var edge_data_4 = {
+                    "edgeID": "e" + ids + ids + ids + ids + ids,
+                    "fromID": "" + ids + ids + ids + ids,
+                    "toID": "" + ids
+                    };
+
+                    var edge_data_5 = {
+                    "edgeID": "e" + ids + ids + ids + ids + ids + ids,
+                    "fromID": "ta" + ids,
+                    "toID": "ya" + ids
+                    };
+
+                    var edge_data_6 = {
+                    "edgeID": "e" + ids + ids + ids + ids + ids + ids + ids,
+                    "fromID": "ya" + ids,
+                    "toID": "" + ids
+                    };
+
+                    node_list.push(node_data);
+                    node_list.push(node_data_2);
+                    node_list.push(node_data_3);
+                    node_list.push(node_data_4);
+                    node_list.push(node_data_5);
+                    node_list.push(node_data_ta);
+                    node_list.push(node_data_ya);
+
+                    edge_list.push(edge_data);
+                    edge_list.push(edge_data_2);
+                    edge_list.push(edge_data_3);
+                    edge_list.push(edge_data_4);
+                    edge_list.push(edge_data_5);
+                    edge_list.push(edge_data_6);
+                }
+
+
+
+
+
+            }
+            else{
+                var node_data = {
                 "nodeID": "" + ids,
                 "text": schema_text,
                 "type": schema_node
-            };
-            var node_data_2 = {
+                };
+                var node_data_2 = {
                 "nodeID": "" + ids + ids + ids + ids,
                 "text": from_text[i],
-                "type": "I"
-            };
-            var node_data_3 = {
+                "type": from_type[i]
+                };
+                var node_data_3 = {
                 "nodeID": "" + ids + ids + ids + ids + ids,
                 "text": to_text[i],
-                "type": "I"
-            };
-            var edge_data = {
+                "type": to_type[i]
+                };
+                var edge_data = {
                 "edgeID": "" + ids + ids,
                 "fromID": "" + ids + ids + ids + ids,
                 "toID": "" + ids
-            };
-            var edge_data_2 = {
+                };
+                var edge_data_2 = {
                 "edgeID": "" + ids + ids + ids,
                 "fromID": "" + ids,
                 "toID": "" + ids + ids + ids + ids + ids
-            };
+                };
 
-            node_list.push(node_data);
-            node_list.push(node_data_2);
-            node_list.push(node_data_3);
-            edge_list.push(edge_data);
-            edge_list.push(edge_data_2);
+                node_list.push(node_data);
+                node_list.push(node_data_2);
+                node_list.push(node_data_3);
+                edge_list.push(edge_data);
+                edge_list.push(edge_data_2);
+            }
+
+
 
         }
         locutions.push({});
@@ -75,8 +364,6 @@ function uploadAIFdb() {
                 "text": item.text,
                 "type": item.type,
                 "timestamp": item.timestamp,
-                "scheme": item.scheme,
-                "schemeID": item.schemeID
             });
         }
 
@@ -90,6 +377,8 @@ function uploadAIFdb() {
             });
         }
         json_aif.locutions.push({});
+
+    //section below needs uncommented for upload to AIFdb
 
         $.ajax({
             url: "/background_process",

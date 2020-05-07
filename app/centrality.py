@@ -132,6 +132,7 @@ class Centrality:
     
     @staticmethod
     def get_loc_prop_pair(graph):
+        i_node_ids =  [x for x,y in graph.nodes(data=True) if y['type']=='I']
         locution_prop_pair = []
         for node_id in i_node_ids:
             preds = list(graph.predecessors(node_id))

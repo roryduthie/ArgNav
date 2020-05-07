@@ -25,7 +25,7 @@ $(function() {
 
 
     
-    function zoomToPathWithID(id){
+function zoomToPathWithID(id){
   panZoomInstance.reset();
   function checkX(x, maxwidth){
 	  if (x < 0){
@@ -108,6 +108,40 @@ $(function() {
 }, 500)
 }
 
+
+function locution_click(l_id, l_text){
+    if (!annotation_flag) {
+            from_type.push('L');
+            //console.log(allText);
+            from_annotation_list.push(l_id);
+            from_text.push(l_text);
+            annotation_flag = true;
+
+        } else {
+            //console.log('TO');
+            to_annotation_list.push(l_id);
+            to_type.push('L');
+            to_text.push(l_text);
+            annotation_counter = annotation_counter + 1;
+
+            $('#dialog').show();
+            $('#dialog #schema').show();
+
+            $('#dialog').dialog({
+                buttons: {
+                    "OK": function() {
+                        $(this).dialog("close");
+                        dialogue_btn_click();
+                        populate_table();
+                    }
+                }
+            });
+
+            annotation_flag = false;
+
+        }
+}
+
 window.onload=function(){
 	//document.getElementsByClassName('dataframe')[0].addEventListener("click",function(e) {
 	// e.target was the clicked element
@@ -129,7 +163,9 @@ window.onload=function(){
 		for (var i = 0; i < loctable.rows.length; i++) {
 		loctable.rows[i].onclick = function() {
 			var loctext= tableText(this);
-			console.log(loctext);
+			//console.log(this.rowIndex);
+            //console.log(lnode_id_list[this.rowIndex]);
+            locution_click(lnode_id_list[this.rowIndex], loctext)
 			};
 		}
 	}
