@@ -38,6 +38,24 @@ svg {
 	width: 100%;
 }
 
+.selectionbar{
+    width: 100%;
+    text-align: center;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Helvetica, Arial, sans-serif;
+    background-color: skyblue;
+    padding: 5px;
+
+}
+
+
+.selectionbar p{
+
+    text-align: center;
+    background-color: skyblue;
+    margin: 0;
+    padding: 0;
+}
+
 .canvasclass {
 	width: 80%;
 	border: 1px solid #ddd;
@@ -49,6 +67,7 @@ svg {
     overflow-y: scroll;
     height: 100%;
     cursor:pointer;
+    border: 1px solid #ddd;
     background-color: white;
 }
 .locutionclass {
@@ -57,6 +76,7 @@ svg {
     overflow-y: scroll;
     height: 100%;
     cursor:pointer;
+    border: 1px solid #ddd;
     background-color: white;
 }
 .annotationclass {
@@ -78,6 +98,10 @@ svg {
 }
 
 #tabsearch{
+    width: 100%;
+}
+
+#locsearch{
     width: 100%;
 }
 

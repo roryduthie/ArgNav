@@ -20,6 +20,10 @@
 
     </header>
 
+    <div class="selectionbar">
+        <p class="selection" id="par"></p>
+    </div>
+
     <div class="container">
 
         <div class="tableclass">
@@ -106,7 +110,8 @@
         x.style.display = "none";
         locbut.style.display = "none";
     }
-
+    var selection = document.getElementsByClassName("selectionbar")[0];
+    selection.style.display = "none";
     var annotation_counter = 0;
     var annotation_flag = false;
     var schema_type = '';
