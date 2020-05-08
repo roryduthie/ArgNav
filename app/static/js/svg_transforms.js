@@ -42,6 +42,10 @@ d3.selectAll('.node')
     function double_click(element, aif_id) {
 
         var textels = element.selectAll('text').nodes();
+        var poly = element.selectAll('polygon');
+        console.log(poly);
+        poly.attr("fill", "skyblue");
+
         var allText = '';
         for (z = 0; z < textels.length; z++) {
             allText = allText + textels[z].innerHTML + ' ';
@@ -52,6 +56,10 @@ d3.selectAll('.node')
             //console.log(allText);
             from_annotation_list.push(aif_id);
             from_text.push(allText);
+            var selection = document.getElementsByClassName("selectionbar")[0];
+            selection.style.display = "block";
+            var ptag = document.getElementById('par');
+            ptag.innerHTML = allText;
             annotation_flag = true;
 
         } else {
@@ -60,7 +68,8 @@ d3.selectAll('.node')
             to_type.push('I');
             to_text.push(allText);
             annotation_counter = annotation_counter + 1;
-
+            var selection = document.getElementsByClassName("selectionbar")[0];
+            selection.style.display = "none";
             $('#dialog').show();
             $('#dialog #schema').show();
 

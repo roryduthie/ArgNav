@@ -116,6 +116,10 @@ function locution_click(l_id, l_text){
             from_annotation_list.push(l_id);
             from_text.push(l_text);
             annotation_flag = true;
+            var selection = document.getElementsByClassName("selectionbar")[0];
+            selection.style.display = "block";
+            var ptag = document.getElementById('par');
+            ptag.innerHTML = l_text;
 
         } else {
             //console.log('TO');
@@ -123,7 +127,8 @@ function locution_click(l_id, l_text){
             to_type.push('L');
             to_text.push(l_text);
             annotation_counter = annotation_counter + 1;
-
+            var selection = document.getElementsByClassName("selectionbar")[0];
+            selection.style.display = "none";
             $('#dialog').show();
             $('#dialog #schema').show();
 
@@ -161,11 +166,15 @@ window.onload=function(){
 
     if (loctable) {
 		for (var i = 0; i < loctable.rows.length; i++) {
-		loctable.rows[i].onclick = function() {
+		loctable.rows[i].onclick = function(e) {
+
+            if (e.shiftKey){
 			var loctext= tableText(this);
 			//console.log(this.rowIndex);
             //console.log(lnode_id_list[this.rowIndex]);
-            locution_click(lnode_id_list[this.rowIndex], loctext)
+            this.style.backgroundColor = "skyblue";
+            locution_click(lnode_id_list[this.rowIndex], loctext);
+            }
 			};
 		}
 	}
