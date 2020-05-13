@@ -378,10 +378,18 @@ function uploadAIFdb() {
             });
         }
         json_aif.locutions.push({});
-        var corporaUp = false;
+
     //section below needs uncommented for upload to AIFdb
         if (confirm('You are about to make changes to the corpus. By clicking cancel a map will be created but the corpus will NOT be changed. ')) {
-            corporaUp = true;
+            corporaUp = "true";
+        }else{
+            corporaUp = "false";
+        }
+
+
+        var corp = {
+            'corpusUp': corporaUp,
+            'aif': json_aif
         }
 
 
@@ -389,7 +397,8 @@ function uploadAIFdb() {
             url: "/background_process",
             type: "POST",
             contentType: "application/json",
-            data: JSON.stringify(json_aif),
+            credentials: 'same-origin',
+            data: JSON.stringify(corp),
             success: function(response) {
 
                 console.log(response);
