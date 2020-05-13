@@ -388,10 +388,10 @@ function uploadAIFdb() {
             data: JSON.stringify(json_aif),
             success: function(response) {
 
-                //console.log(response);
-                var obj = JSON.parse(response);
-                //console.log(obj.nodeSetID);
-                alert('Success! Nodeset ID is: ' + obj.nodeSetID);
+                console.log(response);
+
+
+                alert(response);
             },
             error: function(err) {
                 alert('error ' + err);
