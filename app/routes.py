@@ -160,7 +160,6 @@ def get_map_id_from_json(rsp):
     return mapID
 
 @app.route('/background_process', methods=['POST'])
->>>>>>> IAT-dev
 def background_process_test():
     data = json.dumps(request.get_json())
     filename = uuid.uuid4().hex
