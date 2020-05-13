@@ -93,10 +93,11 @@ def render_text():
 
     iat_mode = check_iat_var(iat_var)
     global isMap
-    global corpusName
+
+
 
     isMap = text.isdigit() 
-    corpusName = text
+    session['isMap'] = isMap
     ordered_nodes, all_nodes, div_nodes, child_nodes, child_edges, s_nodes, l_nodes, l_i_nodes = get_ordered_nodes(text, isMap)
     df = pd.DataFrame(data=ordered_nodes, columns=['id', 'text'])
 
@@ -172,6 +173,7 @@ def background_process_test():
 
 
     #get corpus ID
+    isMap = session.get('isMap')
     mapID = '-1'
     st_response = ''
     #Use isMap to determine where to put file, either in corpus or not.
@@ -189,7 +191,7 @@ def background_process_test():
             st_response = 'ERROR in Map Upload, this may be an annotation error.'
     else:
         appID = '0644439a08954902c64d1d2bb7a6'
-        corpusId = get_corpus_id(corpusName)
+        corpusId = get_corpus_id(session['text_var'])
         response = requests.post('http://www.aifdb.org/json/', files=files, auth=('test', 'pass'))
         mapID = get_map_id_from_json(response)
         if response.ok:
@@ -210,7 +212,6 @@ def background_process_test():
 
 
     #change this to pass the response back as text rather than as the full JSON output, this way we either pass back that a corpus was added to or a map uplaoded with map ID. Might be worth passing MAPID and Corpus name back in that situation.
-
 
     os.remove(filename)
     return (str(st_response).replace("\'", "\"") )
