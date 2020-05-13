@@ -159,7 +159,7 @@ def get_map_id_from_json(rsp):
     mapID = data['nodeSetID']
     return mapID
 
-@app.route('/background_process', methods=['POST'])
+@application.route('/background_process', methods=['POST'])
 def background_process_test():
     data = json.dumps(request.get_json())
     filename = uuid.uuid4().hex
