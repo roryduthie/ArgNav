@@ -160,7 +160,11 @@ def get_map_id_from_json(rsp):
 
 @app.route('/background_process', methods=['POST'])
 def background_process_test():
-    data = json.dumps(request.get_json())
+
+    rsp = request.get_json()
+    corpUp = rsp['corpusUp']
+    data = json.dumps(rsp['aif'])
+
     filename = uuid.uuid4().hex
     filename = filename + '.json'
     with open(filename,"w") as fo:
@@ -171,7 +175,6 @@ def background_process_test():
 
     #App ID needed to post to corpora
 
-
     #get corpus ID
     isMap = session.get('isMap')
     mapID = '-1'
@@ -179,7 +182,7 @@ def background_process_test():
     #Use isMap to determine where to put file, either in corpus or not.
     #Use corpus name to do upload. Produce alert box to determine corpus name.
     #If user does not want corpus upload then, just pass back map else corpus upload.
-    if isMap:
+    if isMap or corpUp == 'false':
         response = requests.post('http://www.aifdb.org/json/', files=files, auth=('test', 'pass'))
 
         mapID = get_map_id_from_json(response)
