@@ -378,8 +378,12 @@ function uploadAIFdb() {
             });
         }
         json_aif.locutions.push({});
-
+        var corporaUp = false;
     //section below needs uncommented for upload to AIFdb
+        if (confirm('You are about to make changes to the corpus. By clicking cancel a map will be created but the corpus will NOT be changed. ')) {
+            corporaUp = true;
+        }
+
 
         $.ajax({
             url: "/background_process",
