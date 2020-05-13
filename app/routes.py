@@ -6,6 +6,7 @@ from app.centrality import Centrality
 from app.svg_parse import SVGParse
 import requests
 import json
+import urllib
 import tempfile
 import os
 import uuid
@@ -91,8 +92,11 @@ def render_text():
     iat_var = session.get('iat_mode', None)
 
     iat_mode = check_iat_var(iat_var)
+    global isMap
+    global corpusName
 
     isMap = text.isdigit() 
+    corpusName = text
     ordered_nodes, all_nodes, div_nodes, child_nodes, child_edges, s_nodes, l_nodes, l_i_nodes = get_ordered_nodes(text, isMap)
     df = pd.DataFrame(data=ordered_nodes, columns=['id', 'text'])
 
@@ -133,6 +137,26 @@ def render_text():
     
     return render_template('results.html', title=text, table=[items], svg=Markup(svg), child_nodes=child_nodes, child_edges=child_edges, svg_nodes=svg_nodes, aif_nodes=aif_nodes, div_nodes=div_nodes, s_nodes=s_nodes, l_node_id=l_node_id, l_node_text=l_node_text, iat_mode=iat_mode, l_i_nodes=l_i_nodes)
 
+def get_corpus_id(corpusShortName):
+
+    with urllib.request.urlopen("http://corpora.aifdb.org/list.php") as url:
+        data = json.loads(url.read().decode())
+
+    for attrs in data['corpora']:
+        corpusSName = attrs['shortname']
+        lock = attrs['locked']
+        if corpusSName == corpusShortName:
+
+            corpusID = attrs['corpusID']
+            if lock == '1':
+                return '-1'
+            return corpusID
+def get_map_id_from_json(rsp):
+
+    data = rsp.json()
+    mapID = data['nodeSetID']
+    return mapID
+
 @app.route('/background_process', methods=['POST'])
 def background_process_test():
     data = json.dumps(request.get_json())
@@ -144,7 +168,49 @@ def background_process_test():
         'file': (filename, open(filename, 'rb')),
     }
 
-    response = requests.post('http://www.aifdb.org/json/', files=files, auth=('test', 'pass'))
+    #App ID needed to post to corpora
+
+
+    #get corpus ID
+    mapID = '-1'
+    st_response = ''
+    #Use isMap to determine where to put file, either in corpus or not.
+    #Use corpus name to do upload. Produce alert box to determine corpus name.
+    #If user does not want corpus upload then, just pass back map else corpus upload.
+    if isMap:
+        response = requests.post('http://www.aifdb.org/json/', files=files, auth=('test', 'pass'))
+
+        mapID = get_map_id_from_json(response)
+
+        if response.ok:
+
+            st_response = 'SUCCESS! ID is ' + str(mapID)
+        else:
+            st_response = 'ERROR in Map Upload, this may be an annotation error.'
+    else:
+        appID = '0644439a08954902c64d1d2bb7a6'
+        corpusId = get_corpus_id(corpusName)
+        response = requests.post('http://www.aifdb.org/json/', files=files, auth=('test', 'pass'))
+        mapID = get_map_id_from_json(response)
+        if response.ok:
+            st_response = 'SUCCESS! ID is ' + str(mapID) + ' and has been uploaded to corpus.'
+        else:
+            st_response = 'ERROR in Map Upload, this may be an annotation error.'
+            return str(st_response).replace("\'", "\"")
+
+        payload = {'nodeSetID': mapID, 'corpusID': corpusId, 'appID':appID}
+        if corpusId == '-1':
+            st_response = 'ERROR corpus is locked. Use edit link to unlock. Map ID is ' + str(mapID)
+            return str(st_response).replace("\'", "\"")
+        else:
+            resp = requests.post('http://corpora.aifdb.org/post.php', data=payload)
+        if response.ok:
+            if not resp.ok:
+                st_response = 'ERROR in corpus Upload. Map ID is ' + str(mapID)
+
+
+    #change this to pass the response back as text rather than as the full JSON output, this way we either pass back that a corpus was added to or a map uplaoded with map ID. Might be worth passing MAPID and Corpus name back in that situation.
+
 
     os.remove(filename)
-    return (response.text)
+    return (str(st_response).replace("\'", "\"") )
