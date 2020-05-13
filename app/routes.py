@@ -137,9 +137,8 @@ def render_text():
     
     return render_template('results.html', title=text, table=[items], svg=Markup(svg), child_nodes=child_nodes, child_edges=child_edges, svg_nodes=svg_nodes, aif_nodes=aif_nodes, div_nodes=div_nodes, s_nodes=s_nodes, l_node_id=l_node_id, l_node_text=l_node_text, iat_mode=iat_mode, l_i_nodes=l_i_nodes)
 
-<<<<<<< HEAD
+
 @application.route('/background_process', methods=['POST'])
-=======
 def get_corpus_id(corpusShortName):
 
     with urllib.request.urlopen("http://corpora.aifdb.org/list.php") as url:
