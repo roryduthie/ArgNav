@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/svg-pan-zoom.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/FileSaver.js') }}"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -57,8 +58,8 @@
 
         <div class="annotationclass">
             <table id="annotationtable"></table>
-            <button id="annotation_sbmt" onclick="uploadAIFdb()"> Upload Analysis to AIFdb</button>
-            <button id="annotation_sbmt" onclick="downloadJSON()"> Download Analysis to local</button>
+            <button id="annotation_sbmt" onclick="uploadAIFdb('true')"> Upload Analysis to AIFdb</button>
+            <button id="annotation_sbmt" onclick="uploadAIFdb('false')"> Download Analysis to local</button>
         </div>
 
     </div>

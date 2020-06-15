@@ -183,7 +183,7 @@ def background_process_test():
     #Use isMap to determine where to put file, either in corpus or not.
     #Use corpus name to do upload. Produce alert box to determine corpus name.
     #If user does not want corpus upload then, just pass back map else corpus upload.
-    if isMap or corpUp == 'false':
+    if isMap or corpUp == 'false' :
         response = requests.post('http://www.aifdb.org/json/', files=files, auth=('test', 'pass'))
 
         mapID = get_map_id_from_json(response)
@@ -213,7 +213,6 @@ def background_process_test():
         if response.ok:
             if not resp.ok:
                 st_response = 'ERROR in corpus Upload. Map ID is ' + str(mapID)
-
 
     #change this to pass the response back as text rather than as the full JSON output, this way we either pass back that a corpus was added to or a map uplaoded with map ID. Might be worth passing MAPID and Corpus name back in that situation.
 
