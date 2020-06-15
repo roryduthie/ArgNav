@@ -58,6 +58,7 @@
         <div class="annotationclass">
             <table id="annotationtable"></table>
             <button id="annotation_sbmt" onclick="uploadAIFdb()"> Upload Analysis to AIFdb</button>
+            <button id="annotation_sbmt" onclick="downloadJSON()"> Download Analysis to local</button>
         </div>
 
     </div>
@@ -93,6 +94,7 @@
     var lnode_id_list = {{l_node_id | tojson}};
     var lnode_text_list = {{l_node_text | tojson}};
     var lnode_inode_list = {{l_i_nodes | tojson}};
+    var inode_list = {{i_node_list | tojson}};
     var from_annotation_list = [];
     var to_annotation_list = [];
     var from_text = [];

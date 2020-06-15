@@ -127,6 +127,7 @@ def render_text():
     
     merged_df = df.merge(svg_df, left_on=['id'], right_on=['aifid'], how='left')
     df_select = all_nodes_df.merge(svg_df, left_on=['id'], right_on=['aifid'], how='left')
+    i_node_list = merged_df['aifid'].tolist()
     merged_df.drop(['id', 'aifid'], axis=1, inplace=True)
     
     svg_nodes = df_select['nodeid'].tolist()
@@ -136,7 +137,7 @@ def render_text():
     
     items = merged_df.to_html(header=False, index=False)
     
-    return render_template('results.html', title=text, table=[items], svg=Markup(svg), child_nodes=child_nodes, child_edges=child_edges, svg_nodes=svg_nodes, aif_nodes=aif_nodes, div_nodes=div_nodes, s_nodes=s_nodes, l_node_id=l_node_id, l_node_text=l_node_text, iat_mode=iat_mode, l_i_nodes=l_i_nodes)
+    return render_template('results.html', title=text, table=[items], svg=Markup(svg), child_nodes=child_nodes, child_edges=child_edges, svg_nodes=svg_nodes, aif_nodes=aif_nodes, div_nodes=div_nodes, s_nodes=s_nodes, l_node_id=l_node_id, l_node_text=l_node_text, iat_mode=iat_mode, l_i_nodes=l_i_nodes, i_node_list=i_node_list)
 
 def get_corpus_id(corpusShortName):
 
