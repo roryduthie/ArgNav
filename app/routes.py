@@ -127,6 +127,7 @@ def render_text():
     
     merged_df = df.merge(svg_df, left_on=['id'], right_on=['aifid'], how='left')
     df_select = all_nodes_df.merge(svg_df, left_on=['id'], right_on=['aifid'], how='left')
+    i_node_list = merged_df['aifid'].tolist()
     merged_df.drop(['id', 'aifid'], axis=1, inplace=True)
     
     svg_nodes = df_select['nodeid'].tolist()
@@ -136,7 +137,7 @@ def render_text():
     
     items = merged_df.to_html(header=False, index=False)
     
-    return render_template('results.html', title=text, table=[items], svg=Markup(svg), child_nodes=child_nodes, child_edges=child_edges, svg_nodes=svg_nodes, aif_nodes=aif_nodes, div_nodes=div_nodes, s_nodes=s_nodes, l_node_id=l_node_id, l_node_text=l_node_text, iat_mode=iat_mode, l_i_nodes=l_i_nodes)
+    return render_template('results.html', title=text, table=[items], svg=Markup(svg), child_nodes=child_nodes, child_edges=child_edges, svg_nodes=svg_nodes, aif_nodes=aif_nodes, div_nodes=div_nodes, s_nodes=s_nodes, l_node_id=l_node_id, l_node_text=l_node_text, iat_mode=iat_mode, l_i_nodes=l_i_nodes, i_node_list=i_node_list)
 
 def get_corpus_id(corpusShortName):
 
@@ -181,7 +182,7 @@ def background_process_test():
     #Use isMap to determine where to put file, either in corpus or not.
     #Use corpus name to do upload. Produce alert box to determine corpus name.
     #If user does not want corpus upload then, just pass back map else corpus upload.
-    if isMap or corpUp == 'false':
+    if isMap or corpUp == 'false' :
         response = requests.post('http://www.aifdb.org/json/', files=files, auth=('test', 'pass'))
 
         mapID = get_map_id_from_json(response)
@@ -211,7 +212,6 @@ def background_process_test():
         if response.ok:
             if not resp.ok:
                 st_response = 'ERROR in corpus Upload. Map ID is ' + str(mapID)
-
 
     #change this to pass the response back as text rather than as the full JSON output, this way we either pass back that a corpus was added to or a map uplaoded with map ID. Might be worth passing MAPID and Corpus name back in that situation.
 

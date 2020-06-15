@@ -16,7 +16,7 @@ function get_l_node_text(i_node_id){
     }
 }
 
-function uploadAIFdb() {
+function uploadAIFdb(upload_bool) {
         var node_list = [];
         var edge_list = [];
         var locutions = [];
@@ -380,6 +380,7 @@ function uploadAIFdb() {
         json_aif.locutions.push({});
 
     //section below needs uncommented for upload to AIFdb
+        if (upload_bool == "true"){
         if (confirm('You are about to make changes to the corpus. By clicking cancel a map will be created but the corpus will NOT be changed. ')) {
             corporaUp = "true";
         }else{
@@ -389,7 +390,8 @@ function uploadAIFdb() {
 
         var corp = {
             'corpusUp': corporaUp,
-            'aif': json_aif
+            'aif': json_aif,
+            'upload_bool': upload_bool
         }
 
 
@@ -410,7 +412,22 @@ function uploadAIFdb() {
                 alert('error ' + err);
             }
         });
+        }else{
+            var corp = {
+            'aif': json_aif
+            };
 
+            var fileName = 'myData.json';
+
+            // Create a blob of the data
+            var fileToSave = new Blob([JSON.stringify(json_aif)], {
+            type: 'application/json',
+            name: fileName
+            });
+
+            // Save the file
+            saveAs(fileToSave, fileName);
+        }
     }
 
     function toggleButton() {

@@ -108,6 +108,44 @@ function zoomToPathWithID(id){
 }, 500)
 }
 
+function inode_ann_click(i_id, i_text){
+    if (!annotation_flag) {
+            from_type.push('I');
+            //console.log(allText);
+            from_annotation_list.push(i_id);
+            from_text.push(i_text);
+            annotation_flag = true;
+            var selection = document.getElementsByClassName("selectionbar")[0];
+            selection.style.display = "block";
+            var ptag = document.getElementById('par');
+            ptag.innerHTML = i_text;
+
+        } else {
+            //console.log('TO');
+            to_annotation_list.push(i_id);
+            to_type.push('I');
+            to_text.push(i_text);
+            annotation_counter = annotation_counter + 1;
+            var selection = document.getElementsByClassName("selectionbar")[0];
+            selection.style.display = "none";
+            $('#dialog').show();
+            $('#dialog #schema').show();
+
+            $('#dialog').dialog({
+                buttons: {
+                    "OK": function() {
+                        $(this).dialog("close");
+                        dialogue_btn_click();
+                        populate_table();
+                    }
+                }
+            });
+
+            annotation_flag = false;
+
+        }
+}
+
 
 function locution_click(l_id, l_text){
     if (!annotation_flag) {
@@ -157,9 +195,19 @@ window.onload=function(){
 	
 	if (table) {
 		for (var i = 0; i < table.rows.length; i++) {
-		table.rows[i].onclick = function() {
+		table.rows[i].onclick = function(e) {
+
+            if (e.shiftKey){
+            var inodetext= centText(this);
+            //console.log(lnode_id_list[this.rowIndex]);
+            this.style.backgroundColor = "skyblue";
+
+            inode_ann_click(inode_list[this.rowIndex], inodetext);
+            }else{
+
 			var aifid= tableText(this);
 			zoomToPathWithID(aifid);
+            }
 			};
 		}
 	}
@@ -179,7 +227,11 @@ window.onload=function(){
 		}
 	}
 
+    function centText(tableRow) {
+		var aiftext = tableRow.childNodes[3].innerHTML;
+		return aiftext;
 
+	}
 	function tableText(tableRow) {
 		var aifid = tableRow.childNodes[1].innerHTML;
 		return aifid;
