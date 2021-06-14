@@ -1,5 +1,5 @@
 from .load_map import CorpusLoader
-from . import application
+from . import app
 import json
 import requests
 from datetime import datetime
@@ -47,7 +47,7 @@ class Centrality:
     def get_graph(node_path):
         corpus_loader = CorpusLoader()
         try:
-            with application.open_resource(node_path) as json_data:
+            with app.open_resource(node_path) as json_data:
                 graph = corpus_loader.parse_json(json.load(json_data))
         except(IOError):
             print('File was not found:')
@@ -104,6 +104,23 @@ class Centrality:
         
         return ordered_ids
     
+    @staticmethod
+    def get_schemes(graph):
+        ra_nodes =  [(x,y['text']) for x,y in graph.nodes(data=True) if y['type']=='RA' and y['text']!='Default Inference']
+        return ra_nodes
+
+    @staticmethod
+    def get_ra_i_schemes_nodes(graph, scheme_ras):
+        ra_tups = []
+        for ra in scheme_ras:
+            node_succ = list(graph.successors(ra[0]))
+            i_1 = node_succ[0]
+            i_1_text = graph.nodes[i_1]['text']
+
+            ra_tup = (ra[0], ra[1],i_1, i_1_text)
+            ra_tups.append(ra_tup)
+        return ra_tups
+
     @staticmethod
     def list_nodes(graph):
         return list(graph)

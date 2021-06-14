@@ -57,7 +57,7 @@ svg {
 }
 
 .canvasclass {
-	width: 80%;
+	width: 70%;
 	border: 1px solid #ddd;
     background-color: white;
 }
@@ -72,6 +72,15 @@ svg {
 }
 .locutionclass {
 	width: 10%;
+	overflow:hidden;
+    overflow-y: scroll;
+    height: 100%;
+    cursor:pointer;
+    border: 1px solid #ddd;
+    background-color: white;
+}
+.schemeclass {
+	width: 20%;
 	overflow:hidden;
     overflow-y: scroll;
     height: 100%;
@@ -102,6 +111,10 @@ svg {
 }
 
 #locsearch{
+    width: 100%;
+}
+
+#schemesearch{
     width: 100%;
 }
 
@@ -194,6 +207,37 @@ svg {
 
 #loc_button:hover {background-color: #ddd;}
 
+
+#btn_scheme_text{
+    width: 100%;
+    white-space: nowrap ;
+    display: inline-block;
+    transform: rotate(-90deg);
+    font-size: medium;
+    color: darkslateblue;
+}
+.schemebuttonclass {
+    border-left: hidden;
+    border-bottom: hidden;
+	width: 2%;
+    border: 1px solid #ddd;
+    cursor:pointer;
+}
+
+
+
+#scheme_button {
+    background-color: #FFFFFF;
+    font-size: large;
+    color: blue;
+    border-left: hidden;
+    width: 2%;
+    position: absolute;
+    height:90%;
+}
+
+#scheme_button:hover {background-color: #ddd;}
+
 table.dataframe {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
@@ -217,6 +261,20 @@ table.locframe {
 }
 
 .locframe td,.locframe th {
+  border-right: hidden;
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+table.schemeframe {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  height: 100%;
+  color: darkslateblue;
+}
+
+.schemeframe td,.schemeframe th {
   border-right: hidden;
   border: 1px solid #ddd;
   padding: 8px;
@@ -246,6 +304,10 @@ table.locframe {
 .locframe tr:nth-child(even){background-color: #f2f2f2;}
 
 .locframe tr:hover {background-color: #ddd;}
+
+.schemeframe tr:nth-child(even){background-color: #f2f2f2;}
+
+.schemeframe tr:hover {background-color: #ddd;}
 
 .dataframe tr:nth-child(even){background-color: #f2f2f2;}
 

@@ -578,6 +578,51 @@ function uploadAIFdb(upload_bool) {
         }
     }
 
+    function toggleSchemeButton() {
+        var x = document.getElementsByClassName("schemeclass")[0];
+        var canvas = document.getElementsByClassName("canvasclass")[0];
+        var annclass = document.getElementsByClassName("annotationclass")[0];
+        var tabclass = document.getElementsByClassName("tableclass")[0];
+        var locclass = document.getElementsByClassName("locutionclass")[0];
+
+        if (x.style.display === "none") {
+            //display loc button
+            x.style.display = "block";
+
+            if (annclass.style.display === "none" || annclass.style.display === "") {
+                if (tabclass.style.display === "none") {
+                    canvas.style.width = "90%";
+                }else{
+                    canvas.style.width = "90%";
+                }
+
+            } else {
+                canvas.style.width = "70%";
+            }
+
+            $("#btn_loc_text").html("&#8679; Schemes &#8679;");
+        } else {
+            //hide loc button
+            $("#btn_loc_text").html("&#8681; Schemes &#8681;");
+            if (annclass.style.display === "none" || annclass.style.display === "") {
+                canvas.style.width = "90%";
+                if(tabclass.style.display === "none"){
+                    canvas.style.width = "100%";
+                }
+            } else {
+                if(tabclass.style.display === "none"){
+                    canvas.style.width = "90%";
+                }
+                else{
+                    canvas.style.width = "70%";
+                }
+
+            }
+
+            x.style.display = "none";
+        }
+    }
+
     function searchtab() {
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("tabsearch");
@@ -602,6 +647,25 @@ function uploadAIFdb(upload_bool) {
         input = document.getElementById("locsearch");
         filter = input.value.toUpperCase();
         table = document.getElementsByClassName('locframe')[0];
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    function schemesearchtab() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("schemesearch");
+        filter = input.value.toUpperCase();
+        table = document.getElementsByClassName('schemeframe')[0];
         tr = table.getElementsByTagName("tr");
         for (i = 0; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td")[0];

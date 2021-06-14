@@ -35,6 +35,30 @@
             <button id="table_button" onclick="toggleButton()"><span id='btn_table_text'> &#8679; Centrality &#8679;</span></button>
         </div>
 
+        <div class="schemeclass">
+            <input type="text" id="schemesearch" onkeyup="schemesearchtab()" placeholder="Search Schemes...">
+            <table class="schemeframe">
+            {% for key, value in schemes.items() %}
+                <tr>
+                    <td rowspan=" {{ value|length }}">{{ key }}</td>
+                    {% for val in value %}
+                    {% if loop.counter == 1 %}
+                    <td> {{ val }} </td>
+                </tr>
+                    {% else %}
+                        <tr>
+                            <td>{{ val }} </td>
+                        </tr>
+                    {% endif %}
+                    {% endfor %}
+
+            {% endfor %}
+            </table>
+        </div>
+        <div class="schemebuttonclass">
+            <button id="scheme_button" onclick="toggleSchemeButton()"><span id='btn_scheme_text'> &#8679; Schemes &#8679;</span></button>
+        </div>
+
         <div class="locutionclass">
             <input type="text" id="locsearch" onkeyup="locsearchtab()" placeholder="Search locutions...">
             <table class="locframe">
@@ -96,6 +120,11 @@
     var lnode_text_list = {{l_node_text | tojson}};
     var lnode_inode_list = {{l_i_nodes | tojson}};
     var inode_list = {{i_node_list | tojson}};
+
+    var schemes = {{schemes | tojson}};
+
+    console.log(schemes);
+
     var from_annotation_list = [];
     var to_annotation_list = [];
     var from_text = [];
