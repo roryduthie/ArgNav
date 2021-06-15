@@ -42,7 +42,7 @@
                 <tr>
                     <td rowspan=" {{ value|length }}">{{ key }}</td>
                     {% for val in value %}
-                    {% if loop.counter == 1 %}
+                    {% if loop.index == 1 %}
                     <td> {{ val }} </td>
                 </tr>
                     {% else %}
