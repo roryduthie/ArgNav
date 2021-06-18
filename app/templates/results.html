@@ -43,11 +43,15 @@
                     <td rowspan=" {{ value|length }}">{{ key }}</td>
                     {% for val in value %}
                     {% if loop.index == 1 %}
-                    <td> {{ val }} </td>
+                    <td style="display:none;"> {{ val[0] }} </td>
+                    <td style="display:none;"> {{ val[1] }} </td>
+                    <td> {{ val[2] }} </td>
                 </tr>
                     {% else %}
                         <tr>
-                            <td>{{ val }} </td>
+                            <td style="display:none;">{{ val[0] }} </td>
+                            <td style="display:none;"> {{ val[1] }} </td>
+                            <td> {{ val[2] }} </td>
                         </tr>
                     {% endif %}
                     {% endfor %}

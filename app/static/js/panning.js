@@ -46,12 +46,15 @@ function zoomToPathWithID(id){
    var wAdj = document.getElementsByClassName('canvasclass')[0].clientWidth;
    //var hAdj = 500;
    console.log(wAdj);
+      console.log(id);
       console.log('got here');
+
       var tViewport = document.querySelector('g.svg-pan-zoom_viewport');
       var tMatrix = tViewport.transform.baseVal.getItem(0).matrix;
 	  //console.log('got here');
 	  
       console.log(tMatrix);
+      console.log(document);
       var tBBox = document.getElementById(id).getBBox();
       //var tPoint = {x: -((tBBox.x + tBBox.width / 2) * tMatrix.a + tMatrix.e), y: (tBBox.y + tBBox.height /2) * (tMatrix.d) + (tMatrix.f) + (hAdj) * 2.25}
       var tPoint = {x: 0, y: 0}
@@ -192,6 +195,7 @@ window.onload=function(){
 	//});
 	var table = document.getElementsByClassName('dataframe')[0];
     var loctable = document.getElementsByClassName('locframe')[0];
+    var schemeTable = document.getElementsByClassName('schemeframe')[0];
 	
 	if (table) {
 		for (var i = 0; i < table.rows.length; i++) {
@@ -227,13 +231,60 @@ window.onload=function(){
 		}
 	}
 
+    if (schemeTable) {
+        var schemeData = schemeTable.getElementsByTagName("td");
+		for (var i = 0; i < schemeData.length; i++) {
+		schemeData[i].onclick = function(e) {
+
+			var aifid= schemeText(this);
+            if (aifid == 0){
+                //filter
+                console.log(this.innerHTML);
+                console.log(schemes);
+                console.log('FILTER');
+
+            }
+            else{
+                console.log(aifid);
+                zoomToPathWithID(aifid);
+            }
+			//
+			};
+		}
+	}
+
     function centText(tableRow) {
+
 		var aiftext = tableRow.childNodes[3].innerHTML;
 		return aiftext;
 
 	}
 	function tableText(tableRow) {
+
 		var aifid = tableRow.childNodes[1].innerHTML;
+        console.log(aifid);
+		return aifid;
+
+	}
+    function schemeText(tableRow) {
+        var text = '';
+        var aifid = 0;
+        try{
+            text = tableRow.innerHTML;
+        }
+        catch(err){
+            text = '';
+        }
+        try{
+            aifid = tableRow.previousSibling.previousSibling.innerHTML;
+            aifid = aifid.trim();
+        }
+        catch(err){
+            aifid = 0
+        }
+
+		console.log(text);
+        console.log(aifid);
 		return aifid;
 
 	}

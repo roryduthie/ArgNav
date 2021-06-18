@@ -130,6 +130,14 @@ def render_text():
     merged_df = df.merge(svg_df, left_on=['id'], right_on=['aifid'], how='left')
     df_select = all_nodes_df.merge(svg_df, left_on=['id'], right_on=['aifid'], how='left')
     i_node_list = merged_df['aifid'].tolist()
+
+    df_schemes = pd.DataFrame(schemes, columns=['id', 'scheme', 'i_node_id', 'i_node_text'])
+    df_schemes['i_node_id'] = df_schemes['i_node_id'].astype(str)
+    m_df = merged_df
+    df_schemes = df_schemes.merge(m_df, left_on=['i_node_id'], right_on=['aifid'], how='left')
+    print(df_schemes.head())
+    df_schemes = df_schemes[['id_x', 'scheme', 'nodeid', 'i_node_text']]
+
     merged_df.drop(['id', 'aifid'], axis=1, inplace=True)
     
     svg_nodes = df_select['nodeid'].tolist()
@@ -139,8 +147,8 @@ def render_text():
     
     items = merged_df.to_html(header=False, index=False)
     
-    df_schemes = pd.DataFrame(schemes, columns=['id', 'scheme', 'i_node_id', 'i_node_text'])
-    df_schemes['tup'] = list(zip(df_schemes['id'], df_schemes['i_node_id'], df_schemes['i_node_text']))
+
+    df_schemes['tup'] = list(zip(df_schemes['id_x'], df_schemes['nodeid'], df_schemes['i_node_text']))
 
     schemes_dict = dict(df_schemes.groupby('scheme')['tup'].apply(list))
 
