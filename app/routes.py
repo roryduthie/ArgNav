@@ -49,8 +49,9 @@ def get_ordered_nodes(node_id, isMap):
     children, edges = centra.get_child_edges(n_graph)
     schemes = centra.get_schemes(n_graph)
     ra_scheme_i_nodes = centra.get_ra_i_schemes_nodes(graph, schemes)
+    all_scheme_nodes = centra.get_all_schemes_nodes(graph, schemes)
     
-    return ordered_nodes, list_of_nodes, divergent_nodes, children, edges, s_nodes, l_nodes, l_node_i_node, ra_scheme_i_nodes
+    return ordered_nodes, list_of_nodes, divergent_nodes, children, edges, s_nodes, l_nodes, l_node_i_node, ra_scheme_i_nodes, all_scheme_nodes
     
 def get_svg_file(node_id):
     c = Centrality()
@@ -100,7 +101,7 @@ def render_text():
 
     isMap = text.isdigit() 
     session['isMap'] = isMap
-    ordered_nodes, all_nodes, div_nodes, child_nodes, child_edges, s_nodes, l_nodes, l_i_nodes, schemes = get_ordered_nodes(text, isMap)
+    ordered_nodes, all_nodes, div_nodes, child_nodes, child_edges, s_nodes, l_nodes, l_i_nodes, schemes, schemes_with_conc_prem = get_ordered_nodes(text, isMap)
     df = pd.DataFrame(data=ordered_nodes, columns=['id', 'text'])
 
     l_node_id = []
@@ -133,11 +134,18 @@ def render_text():
 
     df_schemes = pd.DataFrame(schemes, columns=['id', 'scheme', 'i_node_id', 'i_node_text'])
     df_schemes['i_node_id'] = df_schemes['i_node_id'].astype(str)
+
+    df_all_scheme_nodes = pd.DataFrame(schemes_with_conc_prem, columns=['schemeid', 'scheme', 'i_node_id', 'i_node_text'])
+    df_all_scheme_nodes['i_node_id'] = df_all_scheme_nodes['i_node_id'].astype(str)
+
+
+
     m_df = merged_df
     df_schemes = df_schemes.merge(m_df, left_on=['i_node_id'], right_on=['aifid'], how='left')
-    print(df_schemes.head())
     df_schemes = df_schemes[['id_x', 'scheme', 'nodeid', 'i_node_text']]
 
+    merged_scheme_all_nodes = all_nodes_df.merge(df_all_scheme_nodes, left_on=['id'], right_on=['i_node_id'], how='left')
+    merged_scheme_all_nodes_svg = merged_scheme_all_nodes.merge(svg_df, left_on=['id'], right_on=['aifid'], how='left')
     merged_df.drop(['id', 'aifid'], axis=1, inplace=True)
     
     svg_nodes = df_select['nodeid'].tolist()
@@ -151,8 +159,11 @@ def render_text():
     df_schemes['tup'] = list(zip(df_schemes['id_x'], df_schemes['nodeid'], df_schemes['i_node_text']))
 
     schemes_dict = dict(df_schemes.groupby('scheme')['tup'].apply(list))
+    schemes_binary = dict.fromkeys(schemes_dict, 0)
 
-    return render_template('results.html', title=text, table=[items], svg=Markup(svg), child_nodes=child_nodes, child_edges=child_edges, svg_nodes=svg_nodes, aif_nodes=aif_nodes, div_nodes=div_nodes, s_nodes=s_nodes, l_node_id=l_node_id, l_node_text=l_node_text, iat_mode=iat_mode, l_i_nodes=l_i_nodes, i_node_list=i_node_list, schemes = schemes_dict)
+    all_schemes_svg = merged_scheme_all_nodes_svg.to_dict(orient="records")
+
+    return render_template('results.html', title=text, table=[items], svg=Markup(svg), child_nodes=child_nodes, child_edges=child_edges, svg_nodes=svg_nodes, aif_nodes=aif_nodes, div_nodes=div_nodes, s_nodes=s_nodes, l_node_id=l_node_id, l_node_text=l_node_text, iat_mode=iat_mode, l_i_nodes=l_i_nodes, i_node_list=i_node_list, schemes = schemes_dict, all_schemes=all_schemes_svg, schemes_show = schemes_binary)
 
 def get_corpus_id(corpusShortName):
 

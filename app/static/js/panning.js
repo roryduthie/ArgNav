@@ -16,8 +16,7 @@ $(function() {
   $("#move").on("click", function() {
     // Pan by any values from -80 to 80
    panZoomInstance.zoomAtPoint(8,{x: 434, y: 395});
-   
-   console.log('got here');
+
     //zoomToPathWithID("node23");
     });
     
@@ -41,25 +40,25 @@ function zoomToPathWithID(id){
 	  //console.log('got here');
   //var heightTest = $('#canvasclass');
    //var hAdj = heightTest.height();
-   console.log(document.getElementsByClassName('canvasclass'));
+   //console.log(document.getElementsByClassName('canvasclass'));
    var hAdj = document.getElementsByClassName('canvasclass')[0].clientHeight;
    var wAdj = document.getElementsByClassName('canvasclass')[0].clientWidth;
    //var hAdj = 500;
-   console.log(wAdj);
-      console.log(id);
-      console.log('got here');
+   //console.log(wAdj);
+   //   console.log(id);
+   //   console.log('got here');
 
       var tViewport = document.querySelector('g.svg-pan-zoom_viewport');
       var tMatrix = tViewport.transform.baseVal.getItem(0).matrix;
 	  //console.log('got here');
 	  
-      console.log(tMatrix);
-      console.log(document);
+   //   console.log(tMatrix);
+   //   console.log(document);
       var tBBox = document.getElementById(id).getBBox();
       //var tPoint = {x: -((tBBox.x + tBBox.width / 2) * tMatrix.a + tMatrix.e), y: (tBBox.y + tBBox.height /2) * (tMatrix.d) + (tMatrix.f) + (hAdj) * 2.25}
       var tPoint = {x: 0, y: 0}
-      console.log(tBBox.x);
-	  console.log(wAdj / 2);
+   //   console.log(tBBox.x);
+	//  console.log(wAdj / 2);
       /* if(tBBox.x < (wAdj / 3)){
       	tPoint = {x: -((tBBox.x + tBBox.width) * tMatrix.a + tMatrix.e), y: (tBBox.y + tBBox.height /2) * (tMatrix.d) + (hAdj) - (tMatrix.f)}
       }else if(tBBox.x < (wAdj / 2)){
@@ -69,7 +68,7 @@ function zoomToPathWithID(id){
 	  } */
 	  var s = panZoomInstance.getSizes();
 	  var origs = s.viewBox.width;
-      console.log(origs);
+     // console.log(origs);
 	  var xx =0;
 	  if(tBBox.x < (wAdj / 2)){
 		  xx = (tBBox.x / wAdj) * (wAdj * tMatrix.a) - (tBBox.width / 2);
@@ -86,12 +85,12 @@ function zoomToPathWithID(id){
 	  }
 	  
       //tPoint = {x: (tBBox.x * tMatrix.a) - tBBox.width /2, y: (tBBox.y + tBBox.height /2) * (tMatrix.d) + (hAdj) - (tMatrix.f)}
-	  console.log(tBBox);
-      console.log(tPoint);
+	 // console.log(tBBox);
+     // console.log(tPoint);
       
       //change for very wide maps. If it's a full corpus then the SVG is created horizontal.
-	  console.log('got here');
-	  console.log(origs);
+	 // console.log('got here');
+	 // console.log(origs);
 	  var zoomP = 8;
       if (origs >= 50000){
           
@@ -188,6 +187,15 @@ function locution_click(l_id, l_text){
         }
 }
 
+function check_scheme_visible(scheme_name){
+    var is_visible = schemes_show[scheme_name]
+    if (is_visible == 0){
+        return true
+    }else{
+        return false
+    }
+}
+
 window.onload=function(){
 	//document.getElementsByClassName('dataframe')[0].addEventListener("click",function(e) {
 	// e.target was the clicked element
@@ -239,13 +247,56 @@ window.onload=function(){
 			var aifid= schemeText(this);
             if (aifid == 0){
                 //filter
-                console.log(this.innerHTML);
-                console.log(schemes);
-                console.log('FILTER');
+                var scheme_Text = this.innerHTML;
+                var vis = check_scheme_visible(scheme_Text);
+
+                if (vis){
+
+                    schemes_show[scheme_Text] = 1;
+                }else{
+                    schemes_show[scheme_Text] = 0;
+                }
+                for (var j = 0; j < all_schemes.length; j++) {
+                    var array_scheme_text = all_schemes[j]['scheme'];
+                    if (schemes_show[array_scheme_text] == 1){
+
+                        show_node(all_schemes[j]['nodeid']);
+                        if (array_scheme_text == scheme_Text){
+                            shown_nodes.push(all_schemes[j]['nodeid']);
+                        }
+
+                    }else{
+                        //schemes_show[array_scheme_text] = 0;
+
+                        var nnid1 = all_schemes[j]['nodeid'];
+                        var index_in = shown_nodes.indexOf(nnid1);
+
+                        if (array_scheme_text == scheme_Text){
+                            if (index_in !== -1) {
+                                shown_nodes.splice(index_in, 1);
+                                //hide_node(all_schemes[j]['nodeid']);
+                            }
+                        }
+
+                        if (Object.values(schemes_show).includes(1)) {
+                            var nnid = all_schemes[j]['nodeid'];
+                            var index = shown_nodes.indexOf(nnid);
+                            if (index == -1) {
+                                //shown_nodes.splice(index, 1);
+                                hide_node(all_schemes[j]['nodeid']);
+                            }
+                        }else{
+                            show_node(all_schemes[j]['nodeid']);
+                            shown_nodes = [];
+                        }
+
+                    }
+                    //
+                }
+
 
             }
             else{
-                console.log(aifid);
                 zoomToPathWithID(aifid);
             }
 			//
@@ -262,7 +313,6 @@ window.onload=function(){
 	function tableText(tableRow) {
 
 		var aifid = tableRow.childNodes[1].innerHTML;
-        console.log(aifid);
 		return aifid;
 
 	}
@@ -283,8 +333,6 @@ window.onload=function(){
             aifid = 0
         }
 
-		console.log(text);
-        console.log(aifid);
 		return aifid;
 
 	}

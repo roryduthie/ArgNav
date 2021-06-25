@@ -106,8 +106,9 @@ class Centrality:
     
     @staticmethod
     def get_schemes(graph):
-        ra_nodes =  [(x,y['text']) for x,y in graph.nodes(data=True) if y['type']=='RA' and y['text']!='Default Inference']
-        return ra_nodes
+
+        all_nodes =  [(x,y['text']) for x,y in graph.nodes(data=True) if y['type']=='RA' and y['text']!='Default Inference' or y['type']=='CA' and y['text']!='Default Conflict' or y['type']=='MA' and y['text']!='Default Rephrase']
+        return all_nodes
 
     @staticmethod
     def get_ra_i_schemes_nodes(graph, scheme_ras):
@@ -119,6 +120,29 @@ class Centrality:
 
             ra_tup = (ra[0], ra[1],i_1, i_1_text)
             ra_tups.append(ra_tup)
+        return ra_tups
+
+    @staticmethod
+    def get_all_schemes_nodes(graph, scheme_ras):
+        ra_tups = []
+        for ra in scheme_ras:
+            node_succ = list(graph.successors(ra[0]))
+            s_tup = (ra[0], ra[1],ra[0], ra[1])
+            ra_tups.append(s_tup)
+            i_1 = node_succ[0]
+            i_1_text = graph.nodes[i_1]['text']
+
+            ra_tup = (ra[0], ra[1],i_1, i_1_text)
+            ra_tups.append(ra_tup)
+
+            node_pred = list(graph.predecessors(ra[0]))
+            for ns in node_pred:
+                i_2_text = graph.nodes[ns]['text']
+                i_2_type = graph.nodes[ns]['type']
+
+                if i_2_type != 'YA':
+                    ra_tup_2 = (ra[0], ra[1],ns, i_2_text)
+                    ra_tups.append(ra_tup_2)
         return ra_tups
 
     @staticmethod

@@ -126,8 +126,9 @@
     var inode_list = {{i_node_list | tojson}};
 
     var schemes = {{schemes | tojson}};
+    var all_schemes = {{all_schemes | tojson}};
+    var schemes_show = {{schemes_show | tojson}};
 
-    console.log(schemes);
 
     var from_annotation_list = [];
     var to_annotation_list = [];
@@ -137,6 +138,7 @@
     var to_type = [];
     var schema_list = [];
     var iat_mode = {{iat_mode}};
+    var shown_nodes = [];
 
     if(iat_mode === false){
         var x = document.getElementsByClassName("locutionclass")[0];
