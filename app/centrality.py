@@ -207,3 +207,25 @@ class Centrality:
             list_of_edges.append((v, res_list))
         
         return list_of_nodes, list_of_edges
+
+    @staticmethod
+    def get_all_edges(graph):
+        list_of_nodes = []
+        list_of_edges = []
+
+        for v in list(graph.nodes):
+            node_pres = []
+            node_pres = list(nx.ancestors(graph, v))
+            list_of_nodes.append((v, node_pres))
+            edges = []
+            edges = list(graph.in_edges(v))
+            res_list = []
+            res_list = [(x[0], x[1]) for x in edges]
+            list_of_edges.append((v, res_list))
+            edges_1 = []
+            edges_1 = list(graph.out_edges(v))
+            res_list1= []
+            res_list1 = [(x[0], x[1]) for x in edges_1]
+            list_of_edges.append((v, res_list1))
+
+        return list_of_nodes, list_of_edges

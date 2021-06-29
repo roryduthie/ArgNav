@@ -47,11 +47,12 @@ def get_ordered_nodes(node_id, isMap):
     i_nodes = centra.get_eigen_centrality(n_graph)
     ordered_nodes = centra.sort_by_centrality(i_nodes)
     children, edges = centra.get_child_edges(n_graph)
+    ns, all_edges = centra.get_all_edges(graph)
     schemes = centra.get_schemes(n_graph)
     ra_scheme_i_nodes = centra.get_ra_i_schemes_nodes(graph, schemes)
     all_scheme_nodes = centra.get_all_schemes_nodes(graph, schemes)
     
-    return ordered_nodes, list_of_nodes, divergent_nodes, children, edges, s_nodes, l_nodes, l_node_i_node, ra_scheme_i_nodes, all_scheme_nodes
+    return ordered_nodes, list_of_nodes, divergent_nodes, children, edges, s_nodes, l_nodes, l_node_i_node, ra_scheme_i_nodes, all_scheme_nodes, all_edges
     
 def get_svg_file(node_id):
     c = Centrality()
@@ -101,7 +102,7 @@ def render_text():
 
     isMap = text.isdigit() 
     session['isMap'] = isMap
-    ordered_nodes, all_nodes, div_nodes, child_nodes, child_edges, s_nodes, l_nodes, l_i_nodes, schemes, schemes_with_conc_prem = get_ordered_nodes(text, isMap)
+    ordered_nodes, all_nodes, div_nodes, child_nodes, child_edges, s_nodes, l_nodes, l_i_nodes, schemes, schemes_with_conc_prem, all_edges = get_ordered_nodes(text, isMap)
     df = pd.DataFrame(data=ordered_nodes, columns=['id', 'text'])
 
     l_node_id = []
@@ -163,7 +164,7 @@ def render_text():
 
     all_schemes_svg = merged_scheme_all_nodes_svg.to_dict(orient="records")
 
-    return render_template('results.html', title=text, table=[items], svg=Markup(svg), child_nodes=child_nodes, child_edges=child_edges, svg_nodes=svg_nodes, aif_nodes=aif_nodes, div_nodes=div_nodes, s_nodes=s_nodes, l_node_id=l_node_id, l_node_text=l_node_text, iat_mode=iat_mode, l_i_nodes=l_i_nodes, i_node_list=i_node_list, schemes = schemes_dict, all_schemes=all_schemes_svg, schemes_show = schemes_binary)
+    return render_template('results.html', title=text, table=[items], svg=Markup(svg), child_nodes=child_nodes, child_edges=child_edges, svg_nodes=svg_nodes, aif_nodes=aif_nodes, div_nodes=div_nodes, s_nodes=s_nodes, l_node_id=l_node_id, l_node_text=l_node_text, iat_mode=iat_mode, l_i_nodes=l_i_nodes, i_node_list=i_node_list, schemes = schemes_dict, all_schemes=all_schemes_svg, schemes_show = schemes_binary, all_edges=all_edges)
 
 def get_corpus_id(corpusShortName):
 

@@ -439,6 +439,29 @@ d3.selectAll('.node')
 
     }
 
+    function getEdgesBoth(nodeID, sel_e_list) {
+        for (i = 0; i < all_edges.length; i++) {
+            var node_id = all_edges[i][0];
+            var node_id1 = all_edges[i][1];
+
+            if (node_id == nodeID) {
+                edges = all_edges[i][1];
+                sel_e_list.push(...edges);
+
+
+            }
+            else if(node_id1 == nodeID){
+                edges = all_edges[i][1];
+                sel_e_list.push(...edges);
+
+
+            }
+
+        }
+        return sel_e_list;
+
+    }
+
     function handleMouseOut(d, i) {
         var visibility = d3.select(this).style("opacity");
 

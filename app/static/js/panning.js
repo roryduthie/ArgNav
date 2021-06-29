@@ -245,6 +245,7 @@ window.onload=function(){
 		schemeData[i].onclick = function(e) {
 
 			var aifid= schemeText(this);
+            var sel_edges = [];
             if (aifid == 0){
                 //filter
                 var scheme_Text = this.innerHTML;
@@ -261,6 +262,10 @@ window.onload=function(){
                     if (schemes_show[array_scheme_text] == 1){
 
                         show_node(all_schemes[j]['nodeid']);
+                        sel_edges = [];
+
+                        getEdgesBoth(all_schemes[j]['aifid'], sel_edges);
+                        hide_edges(sel_edges, 'true');
                         if (array_scheme_text == scheme_Text){
                             shown_nodes.push(all_schemes[j]['nodeid']);
                         }
@@ -284,9 +289,18 @@ window.onload=function(){
                             if (index == -1) {
                                 //shown_nodes.splice(index, 1);
                                 hide_node(all_schemes[j]['nodeid']);
+                                sel_edges = [];
+
+                                getEdgesBoth(all_schemes[j]['aifid'], sel_edges);
+
+                                hide_edges(sel_edges, 'false');
                             }
                         }else{
                             show_node(all_schemes[j]['nodeid']);
+                            sel_edges = [];
+
+                            getEdgesBoth(all_schemes[j]['aifid'], sel_edges);
+                            hide_edges(sel_edges, 'true');
                             shown_nodes = [];
                         }
 
