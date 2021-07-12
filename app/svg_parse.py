@@ -3,9 +3,14 @@ import xml.etree.ElementTree as ET
 import pandas as pd
 
 class SVGParse:
+    """
+    Class to parse the SVG file in order to get SVGids for processing in the main results page.
+    """
     @staticmethod
     def parse_svg_file(svg_file):
-        
+        """
+        function to set an SVGid in the root of the svg file.
+        """
         
         try:
             ET.register_namespace("","http://www.w3.org/2000/svg")
@@ -26,11 +31,17 @@ class SVGParse:
         
     @staticmethod
     def convert_list_df(tup_list, column_name_1, column_name_2):
+        """
+        function to convert a tuple list into a dataframe
+        """
         df = pd.DataFrame(tup_list, columns =[column_name_1, column_name_2]) 
         return df
         
     @staticmethod    
     def get_node_ids(svg_file):
+        """
+        function that takes an svg file and extracts the svgid and the aifdb id from each node of the svg.
+        """
         xmldoc = ET.ElementTree(ET.fromstring(svg_file))
         root = xmldoc.getroot()
         n_root = root[0]
