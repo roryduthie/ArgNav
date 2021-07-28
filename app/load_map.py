@@ -6,7 +6,7 @@ import networkx as nx
 
 
 class CorpusLoader:
-     """
+    """
         Class to take a corpus or nodeset id and load it into a networkx graph
 
 

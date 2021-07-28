@@ -379,7 +379,7 @@ class Centrality:
 
     @staticmethod
     def get_all_edges(graph):
-         """
+        """
         Function to get all edges connected to a node in both directions from the node.
 
         First find all the ancestors of a node.
@@ -392,6 +392,7 @@ class Centrality:
         ----------
         graph: aif_graph for corpus
         """
+
         list_of_nodes = []
         list_of_edges = []
 
