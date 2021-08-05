@@ -254,16 +254,19 @@ window.onload=function(){
                 if (vis){
 
                     schemes_show[scheme_Text] = 1;
+                    this.style.backgroundColor = "skyblue";
+
+
                 }else{
                     schemes_show[scheme_Text] = 0;
+                    this.style.backgroundColor = "white";
+
                 }
                 for (var j = 0; j < all_schemes.length; j++) {
                     var array_scheme_text = all_schemes[j]['scheme'];
                     if (schemes_show[array_scheme_text] == 1){
-
                         show_node(all_schemes[j]['nodeid']);
                         sel_edges = [];
-
                         getEdgesBoth(all_schemes[j]['aifid'], sel_edges);
                         hide_edges(sel_edges, 'true');
                         if (array_scheme_text == scheme_Text){
@@ -302,6 +305,7 @@ window.onload=function(){
                             getEdgesBoth(all_schemes[j]['aifid'], sel_edges);
                             hide_edges(sel_edges, 'true');
                             shown_nodes = [];
+
                         }
 
                     }
