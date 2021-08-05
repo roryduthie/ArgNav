@@ -1,0 +1,770 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>ArgNav.app.routes API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>ArgNav.app.routes</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from flask import render_template, request, redirect, session, Markup
+from . import app
+import pandas as pd
+from urllib.request import urlopen
+from app.centrality import Centrality
+from app.svg_parse import SVGParse
+import requests
+import json
+import urllib
+import tempfile
+import os
+import uuid
+
+&#34;&#34;&#34;
+Handles the flask routes for processing the initial form on the homepage of argnav,
+then handles generation of data structures from the selected argument maps.
+
+
+&#34;&#34;&#34;
+
+@app.route(&#39;/&#39;)
+@app.route(&#39;/index&#39;)
+def index():
+    &#34;&#34;&#34;
+    Index function for webpage - redirect to the form uri
+    &#34;&#34;&#34;
+    return redirect(&#39;/form&#39;)
+
+@app.route(&#39;/form&#39;)
+def my_form():
+    &#34;&#34;&#34;
+    render the my-form html page - homepage for argnav
+    &#34;&#34;&#34;
+    return render_template(&#39;my-form.html&#39;)
+
+
+@app.route(&#39;/form&#39;, methods=[&#39;POST&#39;])
+def my_form_post():
+    &#34;&#34;&#34;
+    Function to handle the posts from the form on the html homepage.
+    Then redirects to the results uri - the render_text() function.
+    Set session variables for form selections.
+    &#34;&#34;&#34;
+    iat_mode = &#39;false&#39;
+    text = request.form[&#39;text&#39;]
+    iat_mode = request.form[&#39;iat_mode&#39;]
+    session[&#39;text_var&#39;] = text
+    session[&#39;iat_mode&#39;] = iat_mode
+    return redirect(&#39;/results&#39;)
+
+def get_ordered_nodes(node_id, isMap):
+    centra = Centrality()
+    #node_path = centra.get_nodeset_path(node_id)
+    #Add extension for L-nodes here
+    node_path = centra.create_json_url(node_id, isMap)
+    graph = centra.get_graph_url(node_path)
+    graph = centra.remove_iso_nodes(graph)
+    l_nodes = centra.get_l_node_list(graph)
+    l_node_i_node = centra.get_loc_prop_pair(graph)
+    n_graph = centra.remove_redundant_nodes(graph)
+    list_of_nodes = centra.list_nodes(graph)
+    divergent_nodes = centra.get_divergent_nodes(n_graph)
+    s_nodes = centra.get_s_node_list(n_graph)
+    i_nodes = centra.get_eigen_centrality(n_graph)
+    ordered_nodes = centra.sort_by_centrality(i_nodes)
+    children, edges = centra.get_child_edges(n_graph)
+    ns, all_edges = centra.get_all_edges(graph)
+    schemes = centra.get_schemes(n_graph)
+    ra_scheme_i_nodes = centra.get_ra_i_schemes_nodes(graph, schemes)
+    all_scheme_nodes = centra.get_all_schemes_nodes(graph, schemes)
+
+    return ordered_nodes, list_of_nodes, divergent_nodes, children, edges, s_nodes, l_nodes, l_node_i_node, ra_scheme_i_nodes, all_scheme_nodes, all_edges
+
+def get_svg_file(node_id):
+    c = Centrality()
+    node_path = c.get_svg_path(node_id)
+    try:
+        with app.open_resource(node_path) as file:
+            svg = file.read()
+    except(IOError):
+        print(&#39;File was not found:&#39;)
+        print(node_path)
+    return svg
+
+def get_svg_file_url(node_id, isMap):
+    c = Centrality()
+    node_path = c.create_svg_url(node_id, isMap)
+    try:
+        file = urlopen(node_path)
+        svg = file.read()
+    except(IOError):
+        print(&#39;File was not found:&#39;)
+        print(node_path)
+    return svg
+
+
+
+def get_svg_file_path(node_id):
+    c = Centrality()
+    node_path = c.get_svg_path(node_id)
+    return node_path
+
+def check_iat_var(iat_var):
+    if iat_var == &#39;true&#39;:
+        return &#39;true&#39;
+    else:
+        return &#39;false&#39;
+
+
+@app.route(&#39;/results&#39;)
+def render_text():
+    &#34;&#34;&#34;
+    Function to calculate data structures for rendering on the results page
+    &#34;&#34;&#34;
+
+    text = session.get(&#39;text_var&#39;, None)
+    iat_var = session.get(&#39;iat_mode&#39;, None)
+
+    #call the check_iat_function - this checks to see if IAT mode has been checked
+    # if it has then more processing is needed for locutions
+    iat_mode = check_iat_var(iat_var)
+
+    #check if text is a nodeset id or a corpus shortname - shortnames are never digits. Set it to a global and session variable
+    global isMap
+    isMap = text.isdigit()
+    session[&#39;isMap&#39;] = isMap
+
+    #call the get_ordered_nodes function this takes the nodeset id or coprus shortname and returns data structures containing different parts of the AIF graph
+    ordered_nodes, all_nodes, div_nodes, child_nodes, child_edges, s_nodes, l_nodes, l_i_nodes, schemes, schemes_with_conc_prem, all_edges = get_ordered_nodes(text, isMap)
+
+    #create a pandas dataframe with the I_nodes ordered by their centrality
+    df = pd.DataFrame(data=ordered_nodes, columns=[&#39;id&#39;, &#39;text&#39;])
+
+    l_node_id = []
+    l_node_text = []
+
+    #if IAT mode is true then process L-nodes and lists related to L-nodes otherwise l_nodes list will be blank
+    if iat_mode == &#39;true&#39;:
+        df_locutions = pd.DataFrame(l_nodes, columns=[&#39;id&#39;, &#39;text&#39;])
+        l_node_id = df_locutions[&#39;id&#39;].tolist()
+        l_node_text = df_locutions[&#39;text&#39;].tolist()
+
+
+    #re-index into reverse order - so nodes with highest centrality are at the right end of the dataframe
+    df = df[::-1]
+
+    #create a dataframe with all node IDs
+    all_nodes_df = pd.DataFrame(data=all_nodes, columns=[&#39;id&#39;])
+
+    #convert the IDs in ID column to a string - this is needed for later merging and avoids floating points
+    all_nodes_df[&#39;id&#39;] = all_nodes_df[&#39;id&#39;].astype(str)
+    df[&#39;id&#39;] = df[&#39;id&#39;].astype(str)
+
+    #get the SVG file url corresponding to the corpus shortname or nodeset id
+    svg_file = get_svg_file_url(text, isMap)
+
+    #create instance of SVGParse class and then parse the SVG file to get the SVG IDs and corresponding AIFdb node IDs.
+    svgp = SVGParse()
+    svg = svgp.parse_svg_file(svg_file)
+    svg_df = svgp.get_node_ids(svg_file)
+
+    #convert IDs to strings for merging
+    svg_df[&#39;aifid&#39;] = svg_df[&#39;aifid&#39;].astype(str)
+
+    #merge the AIFid dataframe with the SVG dataframe
+    merged_df = df.merge(svg_df, left_on=[&#39;id&#39;], right_on=[&#39;aifid&#39;], how=&#39;left&#39;)
+    #get SVGids for all the nodes in a graph
+    df_select = all_nodes_df.merge(svg_df, left_on=[&#39;id&#39;], right_on=[&#39;aifid&#39;], how=&#39;left&#39;)
+    i_node_list = merged_df[&#39;aifid&#39;].tolist()
+
+    #convert the schemes list of tuples into a dataframe
+    df_schemes = pd.DataFrame(schemes, columns=[&#39;id&#39;, &#39;scheme&#39;, &#39;i_node_id&#39;, &#39;i_node_text&#39;])
+    df_schemes[&#39;i_node_id&#39;] = df_schemes[&#39;i_node_id&#39;].astype(str)
+
+    #Convert the list of all schemes and the nodes connected to them into a dataframe
+    df_all_scheme_nodes = pd.DataFrame(schemes_with_conc_prem, columns=[&#39;schemeid&#39;, &#39;scheme&#39;, &#39;i_node_id&#39;, &#39;i_node_text&#39;])
+    df_all_scheme_nodes[&#39;i_node_id&#39;] = df_all_scheme_nodes[&#39;i_node_id&#39;].astype(str)
+
+
+    #get the SVGids for all the scheme nodes by joining the dataframes
+    m_df = merged_df
+    df_schemes = df_schemes.merge(m_df, left_on=[&#39;i_node_id&#39;], right_on=[&#39;aifid&#39;], how=&#39;left&#39;)
+    df_schemes = df_schemes[[&#39;id_x&#39;, &#39;scheme&#39;, &#39;nodeid&#39;, &#39;i_node_text&#39;]]
+    merged_scheme_all_nodes = all_nodes_df.merge(df_all_scheme_nodes, left_on=[&#39;id&#39;], right_on=[&#39;i_node_id&#39;], how=&#39;left&#39;)
+    merged_scheme_all_nodes_svg = merged_scheme_all_nodes.merge(svg_df, left_on=[&#39;id&#39;], right_on=[&#39;aifid&#39;], how=&#39;left&#39;)
+    merged_df.drop([&#39;id&#39;, &#39;aifid&#39;], axis=1, inplace=True)
+
+    svg_nodes = df_select[&#39;nodeid&#39;].tolist()
+    aif_nodes = df_select[&#39;aifid&#39;].tolist()
+
+    merged_df = merged_df[[&#39;nodeid&#39;, &#39;text&#39;]]
+
+    #convert the dataframe to html to allow easing rendoring on  the results page
+    items = merged_df.to_html(header=False, index=False)
+
+    #create a column containing a tuple of the svg and aifdb ids for each node
+    df_schemes[&#39;tup&#39;] = list(zip(df_schemes[&#39;id_x&#39;], df_schemes[&#39;nodeid&#39;], df_schemes[&#39;i_node_text&#39;]))
+
+    #group the ids by scheme type - this allows filtering by scheme.
+    schemes_dict = dict(df_schemes.groupby(&#39;scheme&#39;)[&#39;tup&#39;].apply(list))
+    schemes_binary = dict.fromkeys(schemes_dict, 0)
+
+    #convert the schemes to a list of records so that it can be used in javascript.
+    all_schemes_svg = merged_scheme_all_nodes_svg.to_dict(orient=&#34;records&#34;)
+
+    #post all parameters to the results page for rendering or use in the javascript.
+
+    return render_template(&#39;results.html&#39;, title=text, table=[items], svg=Markup(svg), child_nodes=child_nodes, child_edges=child_edges, svg_nodes=svg_nodes, aif_nodes=aif_nodes, div_nodes=div_nodes, s_nodes=s_nodes, l_node_id=l_node_id, l_node_text=l_node_text, iat_mode=iat_mode, l_i_nodes=l_i_nodes, i_node_list=i_node_list, schemes = schemes_dict, all_schemes=all_schemes_svg, schemes_show = schemes_binary, all_edges=all_edges)
+
+def get_corpus_id(corpusShortName):
+    &#34;&#34;&#34;
+    Function to get a corpus ID from the corpus shortname.
+    Will return -1 if the corpus is locked - meaning it should not be edited.
+    &#34;&#34;&#34;
+    with urllib.request.urlopen(&#34;http://corpora.aifdb.org/list.php&#34;) as url:
+        data = json.loads(url.read().decode())
+
+    for attrs in data[&#39;corpora&#39;]:
+        corpusSName = attrs[&#39;shortname&#39;]
+        lock = attrs[&#39;locked&#39;]
+        if corpusSName == corpusShortName:
+
+            corpusID = attrs[&#39;corpusID&#39;]
+            if lock == &#39;1&#39;:
+                return &#39;-1&#39;
+            return corpusID
+def get_map_id_from_json(rsp):
+    &#34;&#34;&#34;
+    Function to get a map ID from a json response from AIFdb
+    &#34;&#34;&#34;
+
+    data = rsp.json()
+    mapID = data[&#39;nodeSetID&#39;]
+    return mapID
+
+@app.route(&#39;/background_process&#39;, methods=[&#39;POST&#39;])
+def background_process_test():
+    &#34;&#34;&#34;
+    Function to save an analysis to AIFdb through a background process triggered in javascript.
+    &#34;&#34;&#34;
+    rsp = request.get_json()
+    corpUp = rsp[&#39;corpusUp&#39;]
+    data = json.dumps(rsp[&#39;aif&#39;])
+
+    filename = uuid.uuid4().hex
+    filename = filename + &#39;.json&#39;
+    with open(filename,&#34;w&#34;) as fo:
+        fo.write(data)
+    files = {
+        &#39;file&#39;: (filename, open(filename, &#39;rb&#39;)),
+    }
+
+    #App ID needed to post to corpora
+
+    #get corpus ID
+    isMap = session.get(&#39;isMap&#39;)
+    mapID = &#39;-1&#39;
+    st_response = &#39;&#39;
+    #Use isMap to determine where to put file, either in corpus or not.
+    #Use corpus name to do upload. Produce alert box to determine corpus name.
+    #If user does not want corpus upload then, just pass back map else corpus upload.
+    if isMap or corpUp == &#39;false&#39; :
+        response = requests.post(&#39;http://www.aifdb.org/json/&#39;, files=files, auth=(&#39;test&#39;, &#39;pass&#39;))
+
+        mapID = get_map_id_from_json(response)
+
+        if response.ok:
+
+            st_response = &#39;SUCCESS! ID is &#39; + str(mapID)
+        else:
+            st_response = &#39;ERROR in Map Upload, this may be an annotation error.&#39;
+    else:
+        appID = &#39;0644439a08954902c64d1d2bb7a6&#39;
+        corpusId = get_corpus_id(session[&#39;text_var&#39;])
+        response = requests.post(&#39;http://www.aifdb.org/json/&#39;, files=files, auth=(&#39;test&#39;, &#39;pass&#39;))
+        mapID = get_map_id_from_json(response)
+        if response.ok:
+            st_response = &#39;SUCCESS! ID is &#39; + str(mapID) + &#39; and has been uploaded to corpus.&#39;
+        else:
+            st_response = &#39;ERROR in Map Upload, this may be an annotation error.&#39;
+            return str(st_response).replace(&#34;\&#39;&#34;, &#34;\&#34;&#34;)
+
+        payload = {&#39;nodeSetID&#39;: mapID, &#39;corpusID&#39;: corpusId, &#39;appID&#39;:appID}
+        if corpusId == &#39;-1&#39;:
+            st_response = &#39;ERROR corpus is locked. Use edit link to unlock. Map ID is &#39; + str(mapID)
+            return str(st_response).replace(&#34;\&#39;&#34;, &#34;\&#34;&#34;)
+        else:
+            resp = requests.post(&#39;http://corpora.aifdb.org/post.php&#39;, data=payload)
+        if response.ok:
+            if not resp.ok:
+                st_response = &#39;ERROR in corpus Upload. Map ID is &#39; + str(mapID)
+
+    #change this to pass the response back as text rather than as the full JSON output, this way we either pass back that a corpus was added to or a map uplaoded with map ID. Might be worth passing MAPID and Corpus name back in that situation.
+
+    os.remove(filename)
+    return (str(st_response).replace(&#34;\&#39;&#34;, &#34;\&#34;&#34;) )</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="ArgNav.app.routes.background_process_test"><code class="name flex">
+<span>def <span class="ident">background_process_test</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Function to save an analysis to AIFdb through a background process triggered in javascript.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@app.route(&#39;/background_process&#39;, methods=[&#39;POST&#39;])
+def background_process_test():
+    &#34;&#34;&#34;
+    Function to save an analysis to AIFdb through a background process triggered in javascript.
+    &#34;&#34;&#34;
+    rsp = request.get_json()
+    corpUp = rsp[&#39;corpusUp&#39;]
+    data = json.dumps(rsp[&#39;aif&#39;])
+
+    filename = uuid.uuid4().hex
+    filename = filename + &#39;.json&#39;
+    with open(filename,&#34;w&#34;) as fo:
+        fo.write(data)
+    files = {
+        &#39;file&#39;: (filename, open(filename, &#39;rb&#39;)),
+    }
+
+    #App ID needed to post to corpora
+
+    #get corpus ID
+    isMap = session.get(&#39;isMap&#39;)
+    mapID = &#39;-1&#39;
+    st_response = &#39;&#39;
+    #Use isMap to determine where to put file, either in corpus or not.
+    #Use corpus name to do upload. Produce alert box to determine corpus name.
+    #If user does not want corpus upload then, just pass back map else corpus upload.
+    if isMap or corpUp == &#39;false&#39; :
+        response = requests.post(&#39;http://www.aifdb.org/json/&#39;, files=files, auth=(&#39;test&#39;, &#39;pass&#39;))
+
+        mapID = get_map_id_from_json(response)
+
+        if response.ok:
+
+            st_response = &#39;SUCCESS! ID is &#39; + str(mapID)
+        else:
+            st_response = &#39;ERROR in Map Upload, this may be an annotation error.&#39;
+    else:
+        appID = &#39;0644439a08954902c64d1d2bb7a6&#39;
+        corpusId = get_corpus_id(session[&#39;text_var&#39;])
+        response = requests.post(&#39;http://www.aifdb.org/json/&#39;, files=files, auth=(&#39;test&#39;, &#39;pass&#39;))
+        mapID = get_map_id_from_json(response)
+        if response.ok:
+            st_response = &#39;SUCCESS! ID is &#39; + str(mapID) + &#39; and has been uploaded to corpus.&#39;
+        else:
+            st_response = &#39;ERROR in Map Upload, this may be an annotation error.&#39;
+            return str(st_response).replace(&#34;\&#39;&#34;, &#34;\&#34;&#34;)
+
+        payload = {&#39;nodeSetID&#39;: mapID, &#39;corpusID&#39;: corpusId, &#39;appID&#39;:appID}
+        if corpusId == &#39;-1&#39;:
+            st_response = &#39;ERROR corpus is locked. Use edit link to unlock. Map ID is &#39; + str(mapID)
+            return str(st_response).replace(&#34;\&#39;&#34;, &#34;\&#34;&#34;)
+        else:
+            resp = requests.post(&#39;http://corpora.aifdb.org/post.php&#39;, data=payload)
+        if response.ok:
+            if not resp.ok:
+                st_response = &#39;ERROR in corpus Upload. Map ID is &#39; + str(mapID)
+
+    #change this to pass the response back as text rather than as the full JSON output, this way we either pass back that a corpus was added to or a map uplaoded with map ID. Might be worth passing MAPID and Corpus name back in that situation.
+
+    os.remove(filename)
+    return (str(st_response).replace(&#34;\&#39;&#34;, &#34;\&#34;&#34;) )</code></pre>
+</details>
+</dd>
+<dt id="ArgNav.app.routes.check_iat_var"><code class="name flex">
+<span>def <span class="ident">check_iat_var</span></span>(<span>iat_var)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def check_iat_var(iat_var):
+    if iat_var == &#39;true&#39;:
+        return &#39;true&#39;
+    else:
+        return &#39;false&#39;</code></pre>
+</details>
+</dd>
+<dt id="ArgNav.app.routes.get_corpus_id"><code class="name flex">
+<span>def <span class="ident">get_corpus_id</span></span>(<span>corpusShortName)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Function to get a corpus ID from the corpus shortname.
+Will return -1 if the corpus is locked - meaning it should not be edited.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_corpus_id(corpusShortName):
+    &#34;&#34;&#34;
+    Function to get a corpus ID from the corpus shortname.
+    Will return -1 if the corpus is locked - meaning it should not be edited.
+    &#34;&#34;&#34;
+    with urllib.request.urlopen(&#34;http://corpora.aifdb.org/list.php&#34;) as url:
+        data = json.loads(url.read().decode())
+
+    for attrs in data[&#39;corpora&#39;]:
+        corpusSName = attrs[&#39;shortname&#39;]
+        lock = attrs[&#39;locked&#39;]
+        if corpusSName == corpusShortName:
+
+            corpusID = attrs[&#39;corpusID&#39;]
+            if lock == &#39;1&#39;:
+                return &#39;-1&#39;
+            return corpusID</code></pre>
+</details>
+</dd>
+<dt id="ArgNav.app.routes.get_map_id_from_json"><code class="name flex">
+<span>def <span class="ident">get_map_id_from_json</span></span>(<span>rsp)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Function to get a map ID from a json response from AIFdb</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_map_id_from_json(rsp):
+    &#34;&#34;&#34;
+    Function to get a map ID from a json response from AIFdb
+    &#34;&#34;&#34;
+
+    data = rsp.json()
+    mapID = data[&#39;nodeSetID&#39;]
+    return mapID</code></pre>
+</details>
+</dd>
+<dt id="ArgNav.app.routes.get_ordered_nodes"><code class="name flex">
+<span>def <span class="ident">get_ordered_nodes</span></span>(<span>node_id, isMap)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_ordered_nodes(node_id, isMap):
+    centra = Centrality()
+    #node_path = centra.get_nodeset_path(node_id)
+    #Add extension for L-nodes here
+    node_path = centra.create_json_url(node_id, isMap)
+    graph = centra.get_graph_url(node_path)
+    graph = centra.remove_iso_nodes(graph)
+    l_nodes = centra.get_l_node_list(graph)
+    l_node_i_node = centra.get_loc_prop_pair(graph)
+    n_graph = centra.remove_redundant_nodes(graph)
+    list_of_nodes = centra.list_nodes(graph)
+    divergent_nodes = centra.get_divergent_nodes(n_graph)
+    s_nodes = centra.get_s_node_list(n_graph)
+    i_nodes = centra.get_eigen_centrality(n_graph)
+    ordered_nodes = centra.sort_by_centrality(i_nodes)
+    children, edges = centra.get_child_edges(n_graph)
+    ns, all_edges = centra.get_all_edges(graph)
+    schemes = centra.get_schemes(n_graph)
+    ra_scheme_i_nodes = centra.get_ra_i_schemes_nodes(graph, schemes)
+    all_scheme_nodes = centra.get_all_schemes_nodes(graph, schemes)
+
+    return ordered_nodes, list_of_nodes, divergent_nodes, children, edges, s_nodes, l_nodes, l_node_i_node, ra_scheme_i_nodes, all_scheme_nodes, all_edges</code></pre>
+</details>
+</dd>
+<dt id="ArgNav.app.routes.get_svg_file"><code class="name flex">
+<span>def <span class="ident">get_svg_file</span></span>(<span>node_id)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_svg_file(node_id):
+    c = Centrality()
+    node_path = c.get_svg_path(node_id)
+    try:
+        with app.open_resource(node_path) as file:
+            svg = file.read()
+    except(IOError):
+        print(&#39;File was not found:&#39;)
+        print(node_path)
+    return svg</code></pre>
+</details>
+</dd>
+<dt id="ArgNav.app.routes.get_svg_file_path"><code class="name flex">
+<span>def <span class="ident">get_svg_file_path</span></span>(<span>node_id)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_svg_file_path(node_id):
+    c = Centrality()
+    node_path = c.get_svg_path(node_id)
+    return node_path</code></pre>
+</details>
+</dd>
+<dt id="ArgNav.app.routes.get_svg_file_url"><code class="name flex">
+<span>def <span class="ident">get_svg_file_url</span></span>(<span>node_id, isMap)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_svg_file_url(node_id, isMap):
+    c = Centrality()
+    node_path = c.create_svg_url(node_id, isMap)
+    try:
+        file = urlopen(node_path)
+        svg = file.read()
+    except(IOError):
+        print(&#39;File was not found:&#39;)
+        print(node_path)
+    return svg</code></pre>
+</details>
+</dd>
+<dt id="ArgNav.app.routes.index"><code class="name flex">
+<span>def <span class="ident">index</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Index function for webpage - redirect to the form uri</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@app.route(&#39;/&#39;)
+@app.route(&#39;/index&#39;)
+def index():
+    &#34;&#34;&#34;
+    Index function for webpage - redirect to the form uri
+    &#34;&#34;&#34;
+    return redirect(&#39;/form&#39;)</code></pre>
+</details>
+</dd>
+<dt id="ArgNav.app.routes.my_form"><code class="name flex">
+<span>def <span class="ident">my_form</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>render the my-form html page - homepage for argnav</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@app.route(&#39;/form&#39;)
+def my_form():
+    &#34;&#34;&#34;
+    render the my-form html page - homepage for argnav
+    &#34;&#34;&#34;
+    return render_template(&#39;my-form.html&#39;) </code></pre>
+</details>
+</dd>
+<dt id="ArgNav.app.routes.my_form_post"><code class="name flex">
+<span>def <span class="ident">my_form_post</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Function to handle the posts from the form on the html homepage.
+Then redirects to the results uri - the render_text() function.
+Set session variables for form selections.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@app.route(&#39;/form&#39;, methods=[&#39;POST&#39;])
+def my_form_post():
+    &#34;&#34;&#34;
+    Function to handle the posts from the form on the html homepage.
+    Then redirects to the results uri - the render_text() function.
+    Set session variables for form selections.
+    &#34;&#34;&#34;
+    iat_mode = &#39;false&#39;
+    text = request.form[&#39;text&#39;]
+    iat_mode = request.form[&#39;iat_mode&#39;]
+    session[&#39;text_var&#39;] = text
+    session[&#39;iat_mode&#39;] = iat_mode
+    return redirect(&#39;/results&#39;)</code></pre>
+</details>
+</dd>
+<dt id="ArgNav.app.routes.render_text"><code class="name flex">
+<span>def <span class="ident">render_text</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Function to calculate data structures for rendering on the results page</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@app.route(&#39;/results&#39;)
+def render_text():
+    &#34;&#34;&#34;
+    Function to calculate data structures for rendering on the results page
+    &#34;&#34;&#34;
+
+    text = session.get(&#39;text_var&#39;, None)
+    iat_var = session.get(&#39;iat_mode&#39;, None)
+
+    #call the check_iat_function - this checks to see if IAT mode has been checked
+    # if it has then more processing is needed for locutions
+    iat_mode = check_iat_var(iat_var)
+
+    #check if text is a nodeset id or a corpus shortname - shortnames are never digits. Set it to a global and session variable
+    global isMap
+    isMap = text.isdigit()
+    session[&#39;isMap&#39;] = isMap
+
+    #call the get_ordered_nodes function this takes the nodeset id or coprus shortname and returns data structures containing different parts of the AIF graph
+    ordered_nodes, all_nodes, div_nodes, child_nodes, child_edges, s_nodes, l_nodes, l_i_nodes, schemes, schemes_with_conc_prem, all_edges = get_ordered_nodes(text, isMap)
+
+    #create a pandas dataframe with the I_nodes ordered by their centrality
+    df = pd.DataFrame(data=ordered_nodes, columns=[&#39;id&#39;, &#39;text&#39;])
+
+    l_node_id = []
+    l_node_text = []
+
+    #if IAT mode is true then process L-nodes and lists related to L-nodes otherwise l_nodes list will be blank
+    if iat_mode == &#39;true&#39;:
+        df_locutions = pd.DataFrame(l_nodes, columns=[&#39;id&#39;, &#39;text&#39;])
+        l_node_id = df_locutions[&#39;id&#39;].tolist()
+        l_node_text = df_locutions[&#39;text&#39;].tolist()
+
+
+    #re-index into reverse order - so nodes with highest centrality are at the right end of the dataframe
+    df = df[::-1]
+
+    #create a dataframe with all node IDs
+    all_nodes_df = pd.DataFrame(data=all_nodes, columns=[&#39;id&#39;])
+
+    #convert the IDs in ID column to a string - this is needed for later merging and avoids floating points
+    all_nodes_df[&#39;id&#39;] = all_nodes_df[&#39;id&#39;].astype(str)
+    df[&#39;id&#39;] = df[&#39;id&#39;].astype(str)
+
+    #get the SVG file url corresponding to the corpus shortname or nodeset id
+    svg_file = get_svg_file_url(text, isMap)
+
+    #create instance of SVGParse class and then parse the SVG file to get the SVG IDs and corresponding AIFdb node IDs.
+    svgp = SVGParse()
+    svg = svgp.parse_svg_file(svg_file)
+    svg_df = svgp.get_node_ids(svg_file)
+
+    #convert IDs to strings for merging
+    svg_df[&#39;aifid&#39;] = svg_df[&#39;aifid&#39;].astype(str)
+
+    #merge the AIFid dataframe with the SVG dataframe
+    merged_df = df.merge(svg_df, left_on=[&#39;id&#39;], right_on=[&#39;aifid&#39;], how=&#39;left&#39;)
+    #get SVGids for all the nodes in a graph
+    df_select = all_nodes_df.merge(svg_df, left_on=[&#39;id&#39;], right_on=[&#39;aifid&#39;], how=&#39;left&#39;)
+    i_node_list = merged_df[&#39;aifid&#39;].tolist()
+
+    #convert the schemes list of tuples into a dataframe
+    df_schemes = pd.DataFrame(schemes, columns=[&#39;id&#39;, &#39;scheme&#39;, &#39;i_node_id&#39;, &#39;i_node_text&#39;])
+    df_schemes[&#39;i_node_id&#39;] = df_schemes[&#39;i_node_id&#39;].astype(str)
+
+    #Convert the list of all schemes and the nodes connected to them into a dataframe
+    df_all_scheme_nodes = pd.DataFrame(schemes_with_conc_prem, columns=[&#39;schemeid&#39;, &#39;scheme&#39;, &#39;i_node_id&#39;, &#39;i_node_text&#39;])
+    df_all_scheme_nodes[&#39;i_node_id&#39;] = df_all_scheme_nodes[&#39;i_node_id&#39;].astype(str)
+
+
+    #get the SVGids for all the scheme nodes by joining the dataframes
+    m_df = merged_df
+    df_schemes = df_schemes.merge(m_df, left_on=[&#39;i_node_id&#39;], right_on=[&#39;aifid&#39;], how=&#39;left&#39;)
+    df_schemes = df_schemes[[&#39;id_x&#39;, &#39;scheme&#39;, &#39;nodeid&#39;, &#39;i_node_text&#39;]]
+    merged_scheme_all_nodes = all_nodes_df.merge(df_all_scheme_nodes, left_on=[&#39;id&#39;], right_on=[&#39;i_node_id&#39;], how=&#39;left&#39;)
+    merged_scheme_all_nodes_svg = merged_scheme_all_nodes.merge(svg_df, left_on=[&#39;id&#39;], right_on=[&#39;aifid&#39;], how=&#39;left&#39;)
+    merged_df.drop([&#39;id&#39;, &#39;aifid&#39;], axis=1, inplace=True)
+
+    svg_nodes = df_select[&#39;nodeid&#39;].tolist()
+    aif_nodes = df_select[&#39;aifid&#39;].tolist()
+
+    merged_df = merged_df[[&#39;nodeid&#39;, &#39;text&#39;]]
+
+    #convert the dataframe to html to allow easing rendoring on  the results page
+    items = merged_df.to_html(header=False, index=False)
+
+    #create a column containing a tuple of the svg and aifdb ids for each node
+    df_schemes[&#39;tup&#39;] = list(zip(df_schemes[&#39;id_x&#39;], df_schemes[&#39;nodeid&#39;], df_schemes[&#39;i_node_text&#39;]))
+
+    #group the ids by scheme type - this allows filtering by scheme.
+    schemes_dict = dict(df_schemes.groupby(&#39;scheme&#39;)[&#39;tup&#39;].apply(list))
+    schemes_binary = dict.fromkeys(schemes_dict, 0)
+
+    #convert the schemes to a list of records so that it can be used in javascript.
+    all_schemes_svg = merged_scheme_all_nodes_svg.to_dict(orient=&#34;records&#34;)
+
+    #post all parameters to the results page for rendering or use in the javascript.
+
+    return render_template(&#39;results.html&#39;, title=text, table=[items], svg=Markup(svg), child_nodes=child_nodes, child_edges=child_edges, svg_nodes=svg_nodes, aif_nodes=aif_nodes, div_nodes=div_nodes, s_nodes=s_nodes, l_node_id=l_node_id, l_node_text=l_node_text, iat_mode=iat_mode, l_i_nodes=l_i_nodes, i_node_list=i_node_list, schemes = schemes_dict, all_schemes=all_schemes_svg, schemes_show = schemes_binary, all_edges=all_edges)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="ArgNav.app" href="index.html">ArgNav.app</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="ArgNav.app.routes.background_process_test" href="#ArgNav.app.routes.background_process_test">background_process_test</a></code></li>
+<li><code><a title="ArgNav.app.routes.check_iat_var" href="#ArgNav.app.routes.check_iat_var">check_iat_var</a></code></li>
+<li><code><a title="ArgNav.app.routes.get_corpus_id" href="#ArgNav.app.routes.get_corpus_id">get_corpus_id</a></code></li>
+<li><code><a title="ArgNav.app.routes.get_map_id_from_json" href="#ArgNav.app.routes.get_map_id_from_json">get_map_id_from_json</a></code></li>
+<li><code><a title="ArgNav.app.routes.get_ordered_nodes" href="#ArgNav.app.routes.get_ordered_nodes">get_ordered_nodes</a></code></li>
+<li><code><a title="ArgNav.app.routes.get_svg_file" href="#ArgNav.app.routes.get_svg_file">get_svg_file</a></code></li>
+<li><code><a title="ArgNav.app.routes.get_svg_file_path" href="#ArgNav.app.routes.get_svg_file_path">get_svg_file_path</a></code></li>
+<li><code><a title="ArgNav.app.routes.get_svg_file_url" href="#ArgNav.app.routes.get_svg_file_url">get_svg_file_url</a></code></li>
+<li><code><a title="ArgNav.app.routes.index" href="#ArgNav.app.routes.index">index</a></code></li>
+<li><code><a title="ArgNav.app.routes.my_form" href="#ArgNav.app.routes.my_form">my_form</a></code></li>
+<li><code><a title="ArgNav.app.routes.my_form_post" href="#ArgNav.app.routes.my_form_post">my_form_post</a></code></li>
+<li><code><a title="ArgNav.app.routes.render_text" href="#ArgNav.app.routes.render_text">render_text</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
