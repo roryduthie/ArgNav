@@ -1,9 +1,9 @@
-/*
+/**
 The code below is a set of default functions that can be used in the results page to operate over javascript arrays, html tables, and JSON.
 */
 
 function get_l_node_text(i_node_id){
-    /*
+    /**
         Function to get the text from an L-node given the I-node ID. Uses the l-node - I-node pair array.
     */
     for(z = 0; z < lnode_inode_list.length; z++){
@@ -24,8 +24,8 @@ function get_l_node_text(i_node_id){
 }
 
 function uploadAIFdb(upload_bool) {
-    /*
-        Function to upload AIF to AIFdb. The function takes annotated data from several lists. From list is the node from which an edge comes, to list is the node receiving an edge. All IAT structures are created automatically where IAT mode has been selected.
+    /**
+        Function to upload AIF to AIFdb. The function takes annotated data from several lists. From list is the node from which an edge comes, to list is the node receiving an edge. All IAT structures are created automatically where IAT mode has been selected. AIFdb automatically assigns node IDs on upload and so IDs only need to be unique within this package.
     */
         var node_list = [];
         var edge_list = [];

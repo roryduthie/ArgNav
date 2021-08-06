@@ -1,9 +1,9 @@
 from flask import render_template, request, redirect, session, Markup
-from . import app
+from . import application
 import pandas as pd
 from urllib.request import urlopen
-from app.centrality import Centrality
-from app.svg_parse import SVGParse
+from application.centrality import Centrality
+from application.svg_parse import SVGParse
 import requests
 import json
 import urllib
@@ -18,15 +18,15 @@ then handles generation of data structures from the selected argument maps.
 
 """
 
-@app.route('/')
-@app.route('/index')
+@application.route('/')
+@application.route('/index')
 def index():
     """
     Index function for webpage - redirect to the form uri
     """
     return redirect('/form')
  
-@app.route('/form')
+@application.route('/form')
 def my_form():
     """
     render the my-form html page - homepage for argnav
@@ -34,7 +34,7 @@ def my_form():
     return render_template('my-form.html') 
     
     
-@app.route('/form', methods=['POST'])
+@application.route('/form', methods=['POST'])
 def my_form_post():
     """
     Function to handle the posts from the form on the html homepage.
@@ -75,7 +75,7 @@ def get_svg_file(node_id):
     c = Centrality()
     node_path = c.get_svg_path(node_id)
     try:
-        with app.open_resource(node_path) as file:
+        with application.open_resource(node_path) as file:
             svg = file.read()
     except(IOError):
         print('File was not found:')
@@ -107,7 +107,7 @@ def check_iat_var(iat_var):
         return 'false'
     
     
-@app.route('/results')
+@application.route('/results')
 def render_text():
     """
     Function to calculate data structures for rendering on the results page
@@ -233,7 +233,7 @@ def get_map_id_from_json(rsp):
     mapID = data['nodeSetID']
     return mapID
 
-@app.route('/background_process', methods=['POST'])
+@application.route('/background_process', methods=['POST'])
 def background_process_test():
     """
     Function to save an analysis to AIFdb through a background process triggered in javascript.
