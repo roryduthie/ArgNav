@@ -2,8 +2,8 @@ from flask import render_template, request, redirect, session, Markup
 from . import application
 import pandas as pd
 from urllib.request import urlopen
-from application.centrality import Centrality
-from application.svg_parse import SVGParse
+from app.centrality import Centrality
+from app.svg_parse import SVGParse
 import requests
 import json
 import urllib
